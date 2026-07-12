@@ -1,32 +1,34 @@
 ## Day 1 - 2026-07-12
 
-**Target**
+**Target** <br>
 Repo setup, monorepo/folder structure, Docker Compose (Postgres, Redis), CI skeleton
 
-**Hours worked:** - 7.5 hours
+**Hours worked:** - 7.5 hours<br>
 8:30AM - 9:00PM (3hrs) - understand project requirements document and create and creating project structure 
-9:00AM - 9:30AM - break
-9:30AM - 12:00PM - (2.5hrs) create project structure by understand project requirements
-1:00PM - 3:00PM (2hrs) - create project structure by understand project requirements
-3:00PM - 6:00PM - attend meeting + writing questions to be asked
-6:00PM - 7:30PM - attend meeting 
-7:30PM - 8:38PM - break
-8:38PM - 10:05PM - break 
+9:00AM - 9:30AM - break<br>
+9:30AM - 12:00PM - (2.5hrs) <br>create project structure by understand project requirements
+1:00PM - 3:00PM (2hrs) <br>- create project structure by understand project requirements
+3:00PM - 6:00PM - <br> attend meeting + writing questions to be asked
+6:00PM - 7:30PM - <br>  attend meeting 
+7:30PM - 8:38PM - <br> break
+8:38PM - 10:05PM - <br> break 
 
 **What I did:**
-Repo setup by 
-1. create README file by understanding project requirements document
-2. create LICENSE file by understanding  project requirements document
-3. create file for environment variables
-4. create gitignore file
-5. log file
-6. requirements file for functional and non-functional requirements
 
-Docker compose
-1. create folder structure and empty docker-compose.yml file for Postgres and Reddis
+- Repo setup by 
 
-CI Skeleton
-1. create folder structure and empty files for CI skeleton using Github Actions 
+    1. create README file by understanding project requirements document
+    2. create LICENSE file by understanding  project requirements document
+    3. create file for environment variables
+    4. create gitignore file
+    5. log file
+    6. requirements file for functional and non-functional requirements
+
+- Docker compose
+    1. create folder structure and empty docker-compose.yml file for Postgres and Reddis
+
+- CI Skeleton
+    1. create folder structure and empty files for CI skeleton using Github Actions 
 
 
 **What I learned:**
