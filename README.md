@@ -22,29 +22,33 @@ Students consume video and text but have **no immediate, contextual help** when 
 
 ## What's LMS-AI ?
 
-latform that goes beyond **static video hosting and quiz delievery**. 
+Platform that goes beyond **static video hosting and quiz delievery**. 
 
-t's AI-augmented ***Learning Management System(LMS)  with AI Tutor*** that mbines conventional LMS capabilities i.e. course authoring, enrollements, 
+It's AI-augmented ***Learning Management System(LMS)  with AI Tutor*** that combines conventional LMS capabilities i.e. course authoring, enrollements, 
 assignments, assessments, certification - with embedded AI tutor that uses 
-Retrieval-Augmented Generation(RAG)** over each course's own material to 
+**Retrieval-Augmented Generation(RAG)** over each course's own material to 
 1. answer student's questions
-2generate summaries
-3. auto-create quizzes4. adapt difficulty to the learner
-The system is architected as **multi-tenant** ready SaaS product with 3 primary e classes
-. Students
-2 Instructors
-3Admins
+2. generate summaries
+3. auto-create quizzes
+4. adapt difficulty to the learner
 
-or each of above classes, has **distinct workspace**. 
+The system is architected as **multi-tenant** ready SaaS product with 3 primary classes
+1. Students
+2. Instructors
+3. Admins
+
+For each of above classes, has **distinct workspace**. 
 
 ## **Architectural Patterns** for production System
-1 RBAC
+1. RBAC
 2. background jobs
-3. ector search4. caching
+3. vector search
+4. caching
 5. containerization
-## ject Setup ructions
-### Steps to run ontend
-### Steps to run ckend
+
+## Project Setup instructions
+### Steps to run Frontend
+### Steps to run Backend
 
 ## Features / Scope
 1. Auth (JWT-based, role-based access control)
@@ -88,7 +92,7 @@ or each of above classes, has **distinct workspace**.
    Live classes with video conferencing (WebRTC-based, e.g., via a managed SFU) and an integrated collaborative whiteboard.
 2. Real time peer-to-peer study rooms <br>
    Real-time peer-to-peer study groups with matchmaking based on course/topic overlap.
-3. AI plagiarism detection engine
+3. AI plagiarism detection engine <br>
    AI plagiarism detection for code and text assignment submissions, using embedding similarity against a submission corpus.
 4. Full payment gateway / subscription billing integration <br>
    Full payment gateway integration (subscriptions, one-time course purchases, instructor payouts).
