@@ -8,7 +8,7 @@ AI-augmented ***Learning Management System(LMS)  with AI Tutor** designed, devel
 [![CI](https://github.com/vermashobhit1994/lms-ai-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/vermashobhit1994/lms-ai-platform/actions)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](./LICENSE)
 
-**[Live Demo →](https://your-app.com)**
+**[Live Demo →]()**
 
 ## What're problems in traditional LMS platform?
 Traditional LMS platform (i.e. Moodle-style, corporate e-learning portals) are **passive content repositories.**
@@ -65,6 +65,20 @@ For each of above classes, has **distinct workspace**.
 12. Discussion forum (per-course, threaded)
 13. Notifications (in-app + email)
 14. Dark mode, basic i18n scaffolding
+
+
+## LMS-AI success metrics (KPIs)
+
+1. Course completion rate
+    - +25% vs. baseline (no-AI control group)
+2. Average doubt resolution time
+    - Under 10 seconds (AI tutor response)
+3. Quiz auto-generation accuracy (human-reviewed)
+    - ≥ 85% usable without edits
+4. Student daily active usage (7-day streak retention)
+    - ≥ 40%
+5. API p95 latency (non-AI endpoints)
+    - Under 300ms
 
 
 ## Tech Stack Decisions
