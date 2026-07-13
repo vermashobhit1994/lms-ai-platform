@@ -57,17 +57,31 @@ Repo setup, monorepo/folder structure, Docker Compose (Postgres, Redis), CI skel
 
 ## Day 2 - 2026-07-13
 **Target**
+- Database schema migration scripts for users/roles/courses/modules/lectures
 
-**Hours worked:**
+**Hours worked:** 6
 
 
 **What I did:**
-
+1. understand database design from scratch. 
+2. installed necessary software to understand database design 
 
 **What I learned:**
 
 
 **Blockers / what I'm stuck on:**
+1. understand database design concepts and why each table is created and why fields 
+   is taken and why relationship is taken? 
+2. how to write migration scripts for entities? 
 
 
 **Plan for tomorrow:**
+1. Database schema migration scripts for users/roles/courses/modules/lectures
+2. delete REQUIREMENTS.md file and put Project requirements file  in 
+   prd.md 
+3. create product architecture and put in architecture.md
+4. create monorepo for frontend and backend
+5. create and understand project folder structure for frontend, backend, 
+   AI integration, docker compose, CI skeleton
+ 
+ 
