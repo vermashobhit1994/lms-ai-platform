@@ -4,13 +4,20 @@
 Repo setup, monorepo/folder structure, Docker Compose (Postgres, Redis), CI skeleton
 
 **Hours worked:** - 7.5 hours<br>
-8:30AM - 9:00PM (3hrs) - understand project requirements document and create and creating project structure
+8:30AM - 9:00PM (3hrs)<br>understand project requirements document and create and creating project structure
+
 9:00AM - 9:30AM - break<br>
+
 9:30AM - 12:00PM - (2.5hrs) <br>create project structure by understand project requirements
+
 1:00PM - 3:00PM (2hrs) <br>- create project structure by understand project requirements
+
 3:00PM - 6:00PM - <br> attend meeting + writing questions to be asked
+
 6:00PM - 7:30PM - <br>  attend meeting
+
 7:30PM - 8:38PM - <br> break
+
 8:38PM - 10:05PM - <br> break
 
 **What I did:**
@@ -90,29 +97,30 @@ Repo setup, monorepo/folder structure, Docker Compose (Postgres, Redis), CI skel
 1. understand database schema design and how it relate to requirements and scope of product
 
 **Hours worked:** 2 hour 7min
-1 hour 13 min
+
+1 hour 13 min<br>
 12:28PM - 13:41PM - reading and understanding product requirement document
                     features of product, current LMS problems, business goals for product,
 					what're metrics that define success of product, architecture used,
 				    architecture patterns used, summary(scope) of product, additional features
 					for product, user personas for different types of users
 
-5min
+5min<br>
 13:41PM - 13:46PM - writing about what I've learnt
 
-5min
+5min<br>
 13:46PM - 13:51PM - break
 
-20min
+20min<br>
 13:51PM - 14:11PM - reading and understanding product requirements document
                     understand functional requirements
 
-16min
+16min<br>
 14:11PM - 14:27PM - break
 
 14:27PM - 13:46PM - break
 
-8min
+8min<br>
 13:46PM - 16:55PM - implement auth feature
 
 16:55PM - 18:00PM - break
@@ -142,33 +150,40 @@ Repo setup, monorepo/folder structure, Docker Compose (Postgres, Redis), CI skel
 
 **Plan for tomorrow:**
 
-Priority 0 - implement user auth feature using **node.js** for
-             1. registration of user
-			 2. login of user
-			 3. JWT token issuance
-			 4. refresh token
-			 5. RBAC middleware
+#### Priority 0 <br>
+- implement user auth feature using **node.js** for
+   1. registration of user
+   2. login of user
+   3. JWT token issuance
+   4. refresh token
+   5. RBAC middleware
 
-		   - also link it to Database
-           - understand why behind database schema design
+- also link it to Database
+- understand why behind database schema design
 
-Priority 1 - Database schema migration scripts for
-             1. roles
-			 2. courses
-			 3. modules
-			 4. lectures
+#### Priority 1 <br>
+- Database schema migration scripts for
+   1. roles
+   2. courses
+   3. modules
+   4. lectures
 
-		   - understand why behind database schema design
+- understand why behind database schema design
 
-Priority 2 - Course CRUD APIs + catalog listing/filtering, pagination
+#### Priority 2 <br>
+- Course CRUD APIs + catalog listing/filtering, pagination
 
-Priority 3 - delete REQUIREMENTS.md file and put Project requirements file in
-             prd.md
+#### Priority 3 <br>
+- delete REQUIREMENTS.md file and put Project requirements file in prd.md
 
-Priority 4 - create product architecture and put in architecture.md
+#### Priority 4 <br>
+- create product architecture and put in architecture.md
 
-Priority 5 - create monorepo for frontend and backend
-Priority 6 - create and understand project folder structure for frontend, backend,
+#### Priority 5 <br>
+- create monorepo for frontend and backend
+
+#### Priority 6 <br>
+- create and understand project folder structure for frontend, backend,
              AI integration, docker compose, CI skeleton
 
 
