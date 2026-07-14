@@ -4,7 +4,8 @@
 
 ### Priority 0
 
-1. User can register/login via email-password with JWT session issuance.
+1. User can register/login via email-password with JWT session issuance and 
+   role based access control.
 2. Student dashboard shows enrolled courses, % progress per course, streak counter
 3. Course catalog supports category, difficulty, and rating filters + search
 4. Video player supports resume-from-last-position and playback speed control

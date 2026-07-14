@@ -50,7 +50,7 @@ For each of above classes, has **distinct workspace**.
 ### Steps to run Frontend
 ### Steps to run Backend
 
-## Features / Scope
+## Scope
 1. Auth (JWT-based, role-based access control)
 2. Student dashboard, course catalog, enrollment, progress tracking
 3. Video lecture streaming (pre-recorded, chunked/progressive delivery)
