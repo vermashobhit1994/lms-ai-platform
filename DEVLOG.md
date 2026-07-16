@@ -3,22 +3,31 @@
 **Target** <br>
 Repo setup, monorepo/folder structure, Docker Compose (Postgres, Redis), CI skeleton
 
-**Hours worked:** - 7.5 hours<br>
-8:30AM - 9:00PM (3hrs)<br>understand project requirements document and create and creating project structure
+**Hours worked:** 7.5 hours<br>
 
-9:00AM - 9:30AM - break<br>
+8:30AM - 9:00PM (3hrs)<br>
+- understand project requirements document and create and creating project structure
 
-9:30AM - 12:00PM - (2.5hrs) <br>create project structure by understand project requirements
+9:00AM - 9:30AM
+- break<br>
 
-1:00PM - 3:00PM (2hrs) <br>- create project structure by understand project requirements
+9:30AM - 12:00PM - (2.5hrs) <br>
+- create project structure by understand project requirements
 
-3:00PM - 6:00PM - <br> attend meeting + writing questions to be asked
+1:00PM - 3:00PM (2hrs) <br>
+- create project structure by understand project requirements
 
-6:00PM - 7:30PM - <br>  attend meeting
+3:00PM - 6:00PM <br>
+- attend meeting + writing questions to be asked
 
-7:30PM - 8:38PM - <br> break
+6:00PM - 7:30PM <br>
+- attend meeting
 
-8:38PM - 10:05PM - <br> break
+7:30PM - 8:38PM <br>
+- break
+
+8:38PM - 10:05PM <br>
+- break
 
 **What I did:**
 
@@ -98,32 +107,40 @@ Repo setup, monorepo/folder structure, Docker Compose (Postgres, Redis), CI skel
 
 **Hours worked:** 2 hour 7min
 
-1 hour 13 min<br>
-12:28PM - 13:41PM - reading and understanding product requirement document
-                    features of product, current LMS problems, business goals for product,
-					what're metrics that define success of product, architecture used,
-				    architecture patterns used, summary(scope) of product, additional features
-					for product, user personas for different types of users
 
-5min<br>
-13:41PM - 13:46PM - writing about what I've learnt
+12:28PM - 13:41PM (1 hour 13 min)<br>
+- reading and understanding product requirement document
+features of product, current LMS problems, business goals for product,
+what're metrics that define success of product, architecture used,
+architecture patterns used, summary(scope) of product, additional features
+for product, user personas for different types of users
 
-5min<br>
-13:46PM - 13:51PM - break
 
-20min<br>
-13:51PM - 14:11PM - reading and understanding product requirements document
-                    understand functional requirements
+13:41PM - 13:46PM (5min)<br>
+- writing about what I've learnt
 
-16min<br>
-14:11PM - 14:27PM - break
 
-14:27PM - 13:46PM - break
+13:46PM - 13:51PM (5min)<br>
+- break
 
-8min<br>
-13:46PM - 16:55PM - implement auth feature
 
-16:55PM - 18:00PM - break
+13:51PM - 14:11PM (20min)<br>
+- reading and understanding product requirements document
+understand functional requirements
+
+
+14:11PM - 14:27PM (16min)<br>
+- break
+
+14:27PM - 13:46PM
+- break
+
+
+13:46PM - 16:55PM (8min)<br>
+- implement auth feature
+
+16:55PM - 18:00PM
+- break
 
 
 
@@ -191,27 +208,105 @@ Repo setup, monorepo/folder structure, Docker Compose (Postgres, Redis), CI skel
 **Target**
 
 
-**Hours worked:**
+**Hours worked:** 4hr 61 min
+
+4:08AM - 4:30AM (22min)
+- writing DEVLOG for yesterday
+
+4:30AM - 5:53AM (23min)
+- resolving commit message rewrite issues in remote branch in git
+
+5:53AM - 8:14AM (39min)
+- implemtation of auth backend
+- refresh token database schema
+- testing CRUD operations on database schema using sql commands
+
+9:15AM -11:08AM (1hr 45min + 8min)
+- creating script for creating database and testing it
+
+11:08AM - 12:00PM (52min)
+- writing scripts for testing Database
+
+12:00PM - 12:28PM (28min)
+- implement auth module
+
+12:28PM - 13:34PM (7min)
+- break
 
 
 **What I did:**
+1. writing scripts to create database and run all database migration scripts
+2. writing test database migration scripts to test users, roles, refresh tokens migration scripts
+3. scaffholding backend monorepo to implement auth using pnpm package manager and
+   installing below dependencies and corresponding supporting types for typescript
+   1. express
+   2. pg
+   3. argon2
+   4. jose
+   5. zod
+   6. helmet
+   7. cors
+   8. express-rate-limit
+   9. winston
+   10. dotenv
+
+   scaffholding backend monorepo with environment variables and its corresponding configuration
+   files, logger files, database pool and migrate files, app file, server file
 
 
 **What I learned:**
+1. giving control to cursor for logs will delete some of logs in order to achieve result,
+   don't provide any control and only used in ask mode.
+2. move to next step only when previous step completed
 
 **Blockers / what I'm stuck on:**
+1. control flow from server.ts file to app.ts file to logger.ts file to pool.ts file to
+   migrate.ts file
+2. what is 2nd feature to be implement
 
 **Plan for tomorrow:**
 
+#### Feature 1 - Auth
+1. correct git log history and including database seeder scripts
+2. understanding control flow from server.ts file to database files
+3. understand JWT access tokens, refresh tokens, RBAC middleware, database refresh tokens
+   and how it's linked to when register and login user
+4. implement APIs for Auth
+5. scaffhold frontend for Auth with routing, layout, auth pages, protected routes
 
+#### implement feature 2 - course
+
+course includes
+  - course catalog
+  - enroll course
+  - create course
+
+1. database migration scripts and seeder scripts for courses -> modules -> lectures
+2. user can browse course catalog
+   - listing, filtering, pagination
+3. user can enroll in course
+4. instructor create course
+5. APIs
+   - courses API
+   -  enrollment & Progress
 
 
 ## Day 5 - 2026-07-16
+
 **Target**
+
+1. finish Auth feature from backend to frontend with no UI
+2. decide feature 2 and implement its backend and frontend with no UI
 
 
 **Hours worked:**
 
+6:08AM - 7:30AM<br>
+- finding problem in git log due to AI use
+- writing task done yesterday and task to be done today
+
+7:30AM - 7:46AM <br>
+- duration of working hours for yesterday
 
 **What I did:**
 
