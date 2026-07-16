@@ -15,5 +15,13 @@
   ],
   "author": "Vertex Learning Technologies Pvt. Ltd.",
   "license": "UNLICENSED",
-  "packageManager": "pnpm@10.33.4"
+  "packageManager": "pnpm@10.33.4",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.1.1",
+    "typescript": "^7.0.2"
+  }
 }
