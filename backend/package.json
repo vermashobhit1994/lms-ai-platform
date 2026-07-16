@@ -1,0 +1,19 @@
+{
+  "name": "LMS-AI backend",
+  "version": "1.0.0",
+  "description": "backend API for Vertexon LMS-AI(Learning Management system with AI Tutor) platform",
+  "main": "src/server.ts",
+  "private": "true",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "lms",
+    "education",
+    "backend",
+    "rbac"
+  ],
+  "author": "Vertex Learning Technologies Pvt. Ltd.",
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@10.33.4"
+}
