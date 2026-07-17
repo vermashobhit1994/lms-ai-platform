@@ -301,18 +301,70 @@ course includes
 
 **Hours worked:**
 
-6:08AM - 7:30AM<br>
+6:08AM - 7:30AM <br>
 - finding problem in git log due to AI use
 - writing task done yesterday and task to be done today
 
 7:30AM - 7:46AM <br>
 - duration of working hours for yesterday
 
-**What I did:**
+7:46AM - 8:00AM <br>
+- fixing formatting issues in DEVLOG.md and removing trailing whitespaces
 
+8:00AM - 8:15AM <br>
+- implement seeder for user_roles in sql
+
+8:15AM - 8:40AM <br>
+- break
+
+8:40AM - 9:22AM<br>
+- correct git log issues
+
+9:22AM - 11:30AM
+- sleeping
+
+11:30AM - 11:43AM
+- health related work
+- laptop setup
+
+11:43AM - 11:55AM
+- how to view force push in github and view files in some snapshot
+
+11:55AM - 1:30PM - work
+
+1:30PM - 2:00PM - lunch
+2:00PM - 9:00PM - work
+
+9:00PM - 11:00PM - half focused work
+
+**What I did:**
+1. implement server in express
+2. connect postgres database before starting server.
 
 **What I learned:**
 
 **Blockers / what I'm stuck on:**
+1. control flow of implementation of auth from frontend to backend to database.
+
+
+**Plan for tomorrow:**
+1. Make a ppt which explain full control flow of implementation of auth from  frontend to backend to database.
+2. implement UI for auth (register and login)
+
+
+## Day 6 - 2026-07-17
+**Target**
+
+
+**Hours worked:**
+
+7:32AM - 7:41AM (9min) - writing task done yesterday
+
+**What I did:**
+
+**What I learned:**
+
+**Blockers / what I'm stuck on:**
+
 
 **Plan for tomorrow:**
