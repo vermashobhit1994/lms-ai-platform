@@ -13,19 +13,21 @@ const port = process.env.SERVER_PORT;
 
 // Step3 - enable cors for frontend to enable origins
 let corsOptions = {
-    origin: 'http://localhost:5173',
+    origin: ['http://localhost:4173', 'http://localhost:5173'],
     optionsSuccessStatus: 200
 }
 
 // Step4 - register JSON body parser before routes/middleware
 app.use(express.json());
 
-app.use("/api/v1/auth/register", cors(corsOptions), (req: Request, res: Response, next: NextFunction) => {
+app.use("/api/v1/auth/register",
+    cors(corsOptions), (req: Request, res: Response, next: NextFunction) => {
     console.log(req.body);
 
     registerUser(req, res);
     next();
 });
+
 
 
 

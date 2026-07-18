@@ -4,10 +4,14 @@ import {
 } from "express";
 
 
-export function registerUser(req: Request, res: Response) {
+export async function registerUser(req: Request, res: Response) {
     console.log("Register user called");
-    // TODO: sanitization
+    // TODO: sanitization and validation
 
     res.json({ message: "registered user called from middleware" })
 
+    // TODO: convert password to hash
+
+
+    // TODO: save user profile data to database
 }
