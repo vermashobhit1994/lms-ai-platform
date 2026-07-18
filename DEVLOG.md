@@ -356,9 +356,64 @@ course includes
 **Target**
 
 
-**Hours worked:**
+**Hours worked:** 5hr 35min
 
 7:32AM - 7:41AM (9min) - writing task done yesterday
+
+7:41AM - 7:47AM (6min) - pushing changes
+
+7:47AM - 8:40AM (53min) - reading about JWT from documentation
+
+8:40AM - 9:28AM (50min) - household work
+
+9:28AM - 11:51AM (2hr 23min) - reading about JWT and decision of which library to choose to implement JWT
+
+11:51AM - 13:22PM - break
+
+14:19PM - 16:00PM - break
+
+16:00PM - 18:30PM - meeting
+
+18:30PM - 20:00PM - food + household work
+
+20:00PM - 21:00PM - create frontend and link it to backend for login
+
+21:00PM - 12:30AM - timepass on mobile by watching youtube videos
+
+
+
+**What I did:**
+1. read about JWT from official documentation and decide
+   which modules to use for it.
+2. linking frontend and backend for login
+
+**What I learned:**
+1. How JWT works?
+2. what is use of name attribute in react form element and why it's used?
+
+
+**Blockers / what I'm stuck on:**
+1. linking frontend, backend, database design, api, folder structure,
+
+**Plan for tomorrow:**
+1. How below requirement link from frontend to backend(including api) to database design to implementation via folder structure ,
+    "user register and login via email/password with JWT session issuance"
+
+2. why, what and how for JWT tokens (refresh token and access token)?
+
+3. implementation of api's on backend and testing them
+
+4. frontend scaffholding with routing, layout, auth pages, protected routes
+5. create dashboard UI & course catalog UI linked to backend
+6. testing via dashboard UI for overall feature testing and writing test cases.
+
+
+## Day 7 - 2026-07-18
+**Target**
+
+
+**Hours worked:**
+
 
 **What I did:**
 
