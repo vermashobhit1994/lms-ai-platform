@@ -412,10 +412,68 @@ course includes
 **Target**
 
 
-**Hours worked:**
+**Hours worked:** 10hr 88min
 
+7:48AM - 8:15AM (27min)
+- writing task done yesterday and task to be done today in DEVLOG.md 
+
+8:15AM - 8:40AM (25min) 
+- work 
+
+8:40AM - 9:15AM 
+- break 
+
+9:15AM - 10:01AM (46min)
+- work 
+
+10:01AM - 10:08AM 
+- body task 
+
+10:08AM - 11:23AM(1hr 15min) 
+- work 
+
+11:23AM - 1:00PM 
+- sleeping
+
+1:00PM - 1:10PM 
+- body work + food 
+
+1:00PM - 9:00PM (8hr) 
+- work 
 
 **What I did:**
+1. create registration form at frontend and link to backend via api 
+2. hashing password 
+3. understanding tables users, roles, user_roles by running SQL commands in psql 
+   and how it link to feature to be implemented. 
+   understanding database design for above tables.
+4. understand how data gets stored in database when user tries to register    
+
+**What I learned:**
+1. why for every step done to store data when user tries to register 
+2. why for using cors in middleware
+3. why for using argon2 
+
+**Blockers / what I'm stuck on:**
+1. what are steps done for sanitization and validation of user register data (from frontend) to ensure security when storing it in database. 
+2. what are steps done for users session management when using JWT (access and refresh token)
+
+**Plan for tomorrow:**
+1. understand why access and refresh tokens are used when login user 
+2. complete login and register functionality by understand
+   1. how features to be implemnted are linked to database design, api, folder structure 
+   2. implement rbac in middleware
+
+
+
+## Day 8 - 2026-07-19
+
+**Hours worked:**
+7:07AM - 7:25AM 
+- writing task done yesterday and what to be done today 
+
+**What I did:**
+
 
 **What I learned:**
 
