@@ -469,15 +469,59 @@ course includes
 ## Day 8 - 2026-07-19
 
 **Hours worked:**
-7:07AM - 7:25AM 
+7:07AM - 7:37AM 
 - writing task done yesterday and what to be done today 
 
-**What I did:**
+7:37AM - 8:40AM
+- understand headers used by helmet node package 
 
+8:40AM - 9:08AM 
+- break 
+
+9:08AM - 10:23AM - read about express 
+10:23AM - 10:50AM - sleeping + brushing + food 
+10:50AM - 4:00PM - understanding software architecture design patterns used for backend 
+4:00AM - 8:00PM - outside work   
+
+**What I did:**
+1. refactor code to understand software architecture design patterns used from 
+   getting api request to writing data in database. 
+   
+  
+
+**What I learned:**
+1. steps to be done from api request by frontend to writing database
+   - software architecture design patterns used.
+	 - why, what and How? 
+
+**Blockers / what I'm stuck on:**
+1. why behind software architecture design patterns used? 
+2. why behine monolithic folder structure used? 
+
+**Plan for tomorrow:**
+1. find out why behine software architecture design patterns from getting request at api 
+   to writing data in database. 
+   
+
+
+## Day 9 - 2026-07-20
+
+**Hours worked:**
+
+9:20AM - 9:30AM 
+- writing tasks done yesterday 
+
+9:30AM - 9:50AM 
+- break
+
+
+**What I did:**
+   
+  
 
 **What I learned:**
 
 **Blockers / what I'm stuck on:**
 
-
 **Plan for tomorrow:**
+   
