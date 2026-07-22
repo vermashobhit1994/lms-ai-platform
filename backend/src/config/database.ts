@@ -1,4 +1,4 @@
-import { Pool } from "pg";
+import { Pool} from "pg";
 
 
 import dotenv from "dotenv";
@@ -10,7 +10,7 @@ if (Number.isNaN(port)) {
     throw new Error(`DATABASE PORT is invalid`);
 }
 
-const pool = new Pool({
+const userPoolConfig = {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     max: 20,
@@ -20,11 +20,12 @@ const pool = new Pool({
     password: process.env.DB_PASSWORD,
     port: Number(process.env.DB_PORT),
     database: process.env.DB_NAME,
-});
+};
+export const userPool = new Pool(userPoolConfig);
 
 
 export async function checkDBConnection() {
-    pool.query("SELECT 1 AS STATUS", (err, resp) => {
+    userPool.query("SELECT 1 AS STATUS", (err, resp) => {
         if (err) {
             throw new Error(err.message)
         }
@@ -34,5 +35,5 @@ export async function checkDBConnection() {
 
 
     });
-    await pool.end()
+    // await userPool.end()
 }
