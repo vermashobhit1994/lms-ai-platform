@@ -28,7 +28,7 @@
 
 import type { Request, Response, NextFunction } from "express";
 import type { ZodType } from "zod";
-import type { ApiErrorResponse } from "../modules/auth/auth.types.ts";
+import type { ApiErrorResponseType } from "../modules/auth/auth.types.ts";
 
 
 export function validateRegisterUserSchema<T>(schema: ZodType<T>) {
@@ -41,7 +41,7 @@ export function validateRegisterUserSchema<T>(schema: ZodType<T>) {
       console.log("middleware: ", result.error.issues)
 
 
-      let errorResponses: ApiErrorResponse = { error: [] };
+      let errorResponses: ApiErrorResponseType = { error: [] };
 
 
       if (result.error.issues?.length > 0) {
