@@ -3,7 +3,7 @@ import { Pool} from "pg";
 
 import dotenv from "dotenv";
 import { DatabaseUnavailableError } from "../modules/auth/auth.errors.ts";
-import type { NextFunction } from "express";
+import { type Request, type Response, type NextFunction } from "express";
 dotenv.config();
 
 
