@@ -27,18 +27,20 @@ import { registerUserSchema } from './auth.schema.ts';
 import { validateRegisterUserSchema } from '../../midddleware/validateRegisteredUserSchema.ts';
 
 import { checkDBConnection } from '../../config/database.ts';
+import { registerUserController } from './auth.controller.ts';
 
 export const authRouter = express.Router();
 
-function authRouterHandler(req: Request, resp: Response, next: NextFunction) {
-    console.log("auth router working...")
-    return resp.status(200).json({
-        message: "Auth router working success"
-    })
-}
+// function authRouterHandler(req: Request, resp: Response, next: NextFunction) {
+//     console.log("auth router working...")
+//     return resp.status(200).json({
+//         message: "Auth router working success"
+//     })
+// }
 
 
-authRouter.post("/register", checkDBConnection, validateRegisterUserSchema(registerUserSchema), authRouterHandler);
+authRouter.post("/register", checkDBConnection, validateRegisterUserSchema(registerUserSchema),
+    registerUserController);
 
 // TODO: implement login route
 // TODO: implement schema validation
