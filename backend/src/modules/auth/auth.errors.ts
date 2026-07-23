@@ -86,3 +86,13 @@ export class ValidationError extends AppError {
         this.errors = errors;
     }
 }
+
+export class DatabaseUnavailableError extends AppError {
+    constructor() {
+        super(
+            503,
+            "DATABASE_UNAVAILABLE",
+            "Service temporarily unavailable."
+        );
+    }
+}

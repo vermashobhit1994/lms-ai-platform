@@ -2,6 +2,8 @@ import { Pool} from "pg";
 
 
 import dotenv from "dotenv";
+import { DatabaseUnavailableError } from "../modules/auth/auth.errors.ts";
+import type { NextFunction } from "express";
 dotenv.config();
 
 
@@ -24,16 +26,21 @@ const userPoolConfig = {
 export const userPool = new Pool(userPoolConfig);
 
 
-export async function checkDBConnection() {
-    userPool.query("SELECT 1 AS STATUS", (err, resp) => {
-        if (err) {
-            throw new Error(err.message)
-        }
-        else if (resp.rows[0].status === 1) {
-            console.log(`${process.env.DB_NAME} database connected successfully `);
-        }
+export async function checkDBConnection(req: Request,
+    resp: Response, next: NextFunction
+) {
+    try {
 
+        await userPool.query("SELECT 1 AS STATUS");
 
-    });
-    // await userPool.end()
+        // console.log(`${process.env.DB_NAME} database connected successfully `);
+        next();
+    } catch (err) {
+        // console.error("Database unavailable:", err);
+
+        next(new DatabaseUnavailableError());
+    } finally {
+        // userPool.end();
+    }
+
 }

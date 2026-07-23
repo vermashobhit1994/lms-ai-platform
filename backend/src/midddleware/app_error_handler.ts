@@ -38,7 +38,7 @@
 
 
 import { type Response, type Request, type NextFunction } from "express";
-import { AppError, ValidationError } from "../modules/auth/auth.errors.ts";
+import { AppError, ValidationError, DatabaseUnavailableError } from "../modules/auth/auth.errors.ts";
 
 /**
  * @description handle application error when route in server matched
@@ -48,6 +48,7 @@ import { AppError, ValidationError } from "../modules/auth/auth.errors.ts";
  * @param next
  * @returns error JSON data in structured format for HTTP request
  */
+
 export function appErrorHandler(
     err: Error,
     req: Request,
@@ -65,6 +66,14 @@ export function appErrorHandler(
         });
     }
 
+    if (err instanceof DatabaseUnavailableError) {
+        return resp.status(503).json({
+            error: {
+                code: err.code,
+                message: err.message
+            }
+        });
+    }
 
     if (err instanceof AppError) {
         return resp.status(err.statusCode).json({

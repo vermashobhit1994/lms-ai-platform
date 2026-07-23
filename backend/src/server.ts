@@ -30,7 +30,6 @@
  */
 
 import express, { type Express, type Request, type Response, type NextFunction } from 'express';
-import { checkDBConnection } from "./config/database.ts"
 
 import cors from "cors";
 
@@ -39,9 +38,6 @@ import { authRouter } from './modules/auth/auth.routes.ts';
 
 import { appErrorHandler } from './midddleware/app_error_handler.ts';
 
-
-// Step1 - check for database connection
-await checkDBConnection()
 
 // Step2 - create a server
 const app: Express = express();
@@ -60,5 +56,5 @@ app.use("/api/v1/auth", authRouter);
 app.use(appErrorHandler);
 
 app.listen(port, () => {
-    console.log(`Backend Express server listening on port ${port}`);
+    console.log(`Server running on PORT: ${port}`);
 });
