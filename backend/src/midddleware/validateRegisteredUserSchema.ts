@@ -29,16 +29,14 @@
 import type { Request, Response, NextFunction } from "express";
 import type { ZodType } from "zod";
 import type { ApiErrorResponseType } from "../modules/auth/auth.types.ts";
+import { ValidationError } from "../modules/auth/auth.errors.ts";
 
 
 export function validateRegisterUserSchema<T>(schema: ZodType<T>) {
   return (req: Request, resp: Response, next: NextFunction) => {
-    console.log(req.body.email);
-    console.log(JSON.stringify(req.body.email));
     const result = schema.safeParse(req.body)
 
     if (!result.success) {
-      console.log("middleware: ", result.error.issues)
 
 
       let errorResponses: ApiErrorResponseType = { error: [] };
@@ -57,7 +55,11 @@ export function validateRegisterUserSchema<T>(schema: ZodType<T>) {
 
 
 
-        return resp.status(400).json(errorResponses)
+        return next(
+          new ValidationError(
+            errorResponses.error
+          )
+        );
       }
       req.body = result.data   // cleaned/normalized data
     }

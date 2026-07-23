@@ -39,3 +39,23 @@ export interface ApiErrorType {
 export interface ApiErrorResponseType {
     error: ApiErrorType[];
 }
+export interface RegisterUserInputType {
+    full_name: string;
+    email: string;
+    password: string;
+    role: string;
+}
+
+export interface RegisterUserResponseType {
+    user: {
+        id: string;
+        full_name: string;
+        role: string;
+    }
+}
+
+export interface ValidationIssueType {
+    code: string;
+    message: string;
+    field?: string;
+}
