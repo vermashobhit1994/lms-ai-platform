@@ -38,7 +38,7 @@
 import type { Request, Response, NextFunction } from "express";
 import { type RegisterUserInputType, type RegisterUserResponseType } from "./auth.types.ts";
 import { UserAlreadyExistsError } from "./auth.errors.ts";
-
+import { registerUserService } from "./auth.service.ts";
 
 
 
@@ -58,16 +58,10 @@ export async function registerUserController(req: Request, resp: Response, next:
 
     // 2. call service
     try {
-        // TODO: implement and call Register user service
-        // dummy data for testing
-        const registerUserResponseData: RegisterUserResponseType = {
-            user: {
-                id: "456465",
-                full_name: "test 123",
-                role: "student"
-            }
-        }
+
+        const registerUserResponseData: RegisterUserResponseType = await registerUserService(registerUserInputData)
         console.log(registerUserResponseData);
+
         // throw new UserAlreadyExistsError("email");
         resp.status(201).json(registerUserResponseData);
     } catch (err) {

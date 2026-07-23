@@ -59,3 +59,9 @@ export interface ValidationIssueType {
     message: string;
     field?: string;
 }
+export interface userDBType {
+    "fullName": string;
+    "email": string;
+    "hashedPassword": string;
+    "role": string;
+}
