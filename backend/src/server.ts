@@ -1,7 +1,6 @@
 import express, { type Express, type Request, type Response, type NextFunction } from 'express';
 import { checkDBConnection } from "./config/database.ts"
 
-import { registerUser } from "./midddleware/authenticate.ts";
 import cors from "cors";
 
 import { corsConfigOptions } from './config/corsConfig.ts';
@@ -22,10 +21,8 @@ app.use(express.json());
 
 app.use("/api/v1/auth/register",
     cors(corsConfigOptions), (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.body);
-
-    registerUser(req, res);
-    next();
+        console.log(req.body);
+        next();
 });
 
 
