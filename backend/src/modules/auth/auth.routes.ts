@@ -34,7 +34,7 @@ function authRouterHandler(req: Request, resp: Response, next: NextFunction) {
     })
 }
 
-// TODO: implement schema validation
+
 authRouter.post("/register", validateRegisterUserSchema(registerUserSchema), authRouterHandler);
 
 // TODO: implement login route
