@@ -19,9 +19,9 @@
  * How to use API contract as per OpenAPI specification
  */
 
-
+import { env } from "./envConfig.ts"
 export const corsConfigOptions = {
     //TODO: change to domain url i.e. https://app.yourdomain.com
-    origin: [process.env.CORS_ORIGIN_DEVELOPMENT, process.env.CORS_ORIGIN_BUILD],
+    origin: [env.CORS_ORIGIN_DEVELOPMENT, env.CORS_ORIGIN_BUILD],
     optionsSuccessStatus: 200
 }
