@@ -9,7 +9,8 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/server.js",
-    "db:create-empty": "tsx src/db/scripts/01_create_empty_db.ts --ignoreConfig"
+    "db:create-empty": "tsx src/db/scripts/01_create_empty_db.ts --ignoreConfig",
+    "db:migrate": "tsx src/db/scripts/02_run_db_migrations.ts --ignoreConfig"
   },
   "keywords": [
     "lms",
