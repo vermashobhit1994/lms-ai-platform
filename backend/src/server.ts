@@ -4,6 +4,8 @@ import { checkDBConnection } from "./config/database.ts"
 import cors from "cors";
 
 import { corsConfigOptions } from './config/corsConfig.ts';
+import { authRouter } from './modules/auth/auth.routes.ts';
+
 
 
 // Step1 - check for database connection
@@ -19,11 +21,8 @@ app.use(cors(corsConfigOptions))
 // Step4 - register JSON body parser before routes/middleware
 app.use(express.json());
 
-app.use("/api/v1/auth/register",
-    cors(corsConfigOptions), (req: Request, res: Response, next: NextFunction) => {
-        console.log(req.body);
-        next();
-});
+// Step5 - break down routes into auth specific routes
+app.use("/api/v1/auth", authRouter);
 
 
 
