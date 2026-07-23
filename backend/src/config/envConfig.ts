@@ -26,6 +26,7 @@
  * How to use API contract as per OpenAPI specification
  */
 
+import 'dotenv/config';
 const CORS_ORIGIN_DEVELOPMENT = process.env.CORS_ORIGIN_DEVELOPMENT;
 const CORS_ORIGIN_BUILD = process.env.CORS_ORIGIN_BUILD;
 
