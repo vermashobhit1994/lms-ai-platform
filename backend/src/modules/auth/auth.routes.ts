@@ -23,7 +23,8 @@
 
 
 import express, { type Request, type Response, type NextFunction } from 'express';
-
+import { registerUserSchema } from './auth.schema.ts';
+import { validateRegisterUserSchema } from '../../midddleware/validateRegisteredUserSchema.ts';
 export const authRouter = express.Router();
 
 function authRouterHandler(req: Request, resp: Response, next: NextFunction) {
@@ -34,7 +35,7 @@ function authRouterHandler(req: Request, resp: Response, next: NextFunction) {
 }
 
 // TODO: implement schema validation
-authRouter.post("/register", authRouterHandler);
+authRouter.post("/register", validateRegisterUserSchema(registerUserSchema), authRouterHandler);
 
 // TODO: implement login route
 // TODO: implement schema validation
