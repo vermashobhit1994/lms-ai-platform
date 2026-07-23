@@ -24,6 +24,8 @@ import type { ApiErrorResponse } from "../modules/auth/auth.types.ts";
 
 export function validateRegisterUserSchema<T>(schema: ZodType<T>) {
   return (req: Request, resp: Response, next: NextFunction) => {
+    console.log(req.body.email);
+    console.log(JSON.stringify(req.body.email));
     const result = schema.safeParse(req.body)
 
     if (!result.success) {
@@ -49,7 +51,7 @@ export function validateRegisterUserSchema<T>(schema: ZodType<T>) {
         return resp.status(400).json(errorResponses)
       }
       req.body = result.data   // cleaned/normalized data
-      next()                   // ← IMPORTANT: pass to controller
     }
+    next()                   // ← IMPORTANT: pass to controller
   }
 }
