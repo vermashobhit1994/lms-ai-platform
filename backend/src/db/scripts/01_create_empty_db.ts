@@ -45,13 +45,30 @@ const adminPool = new Pool({
 async function createEmptyDatabase() {
 
     try {
-        const filePath = "src\\db\\scripts\\01_create_empty_database.sql"
-        const sql = await fs.readFile(filePath, "utf-8");
-        const finalSql = sql.replaceAll(
+        let filePath = "src\\db\\scripts\\01_create-empty-database\\01_terminate_connections.sql"
+        let sql = await fs.readFile(filePath, "utf-8");
+        let finalSql = sql.replaceAll(
             "{{DB_NAME}}",
             env.DB_NAME
         );
+        await adminPool.query(
+            finalSql);
 
+        filePath = "src\\db\\scripts\\01_create-empty-database\\02_drop_database.sql"
+        sql = await fs.readFile(filePath, "utf-8");
+        finalSql = sql.replaceAll(
+            "{{DB_NAME}}",
+            env.DB_NAME
+        );
+        await adminPool.query(
+            finalSql);
+
+        filePath = "src\\db\\scripts\\01_create-empty-database\\03_create_database.sql"
+        sql = await fs.readFile(filePath, "utf-8");
+        finalSql = sql.replaceAll(
+            "{{DB_NAME}}",
+            env.DB_NAME
+        );
         await adminPool.query(
             finalSql);
     } finally {
