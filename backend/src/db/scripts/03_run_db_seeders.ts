@@ -24,7 +24,7 @@
 
 import fs from "node:fs/promises";
 import "dotenv/config";
-import { dbPool } from "../../config/database.ts";
+import { dbPool } from "../../config/databaseConfig.ts";
 
 async function runSeeders() {
     console.log("run seeders");

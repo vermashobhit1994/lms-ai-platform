@@ -33,7 +33,7 @@
 
 import fs from "node:fs/promises";
 import "dotenv/config"
-import { dbPool } from "../../config/database.ts";
+import { dbPool } from "../../config/databaseConfig.ts";
 
 /**
  * @description run all migration scripts to create tables and fields

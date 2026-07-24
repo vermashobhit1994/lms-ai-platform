@@ -26,7 +26,7 @@ import express, { type Request, type Response, type NextFunction } from 'express
 import { registerUserSchema } from './auth.schema.ts';
 import { validateRegisterUserSchema } from '../../midddleware/validateRegisteredUserSchema.ts';
 
-import { checkDBConnection } from '../../config/database.ts';
+import { checkDBConnection } from '../../config/databaseConfig.ts';
 import { registerUserController } from './auth.controller.ts';
 
 export const authRouter = express.Router();

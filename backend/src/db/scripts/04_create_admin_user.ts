@@ -20,7 +20,7 @@
  *
  */
 import fs from "node:fs/promises";
-import { dbPool } from "../../config/database.ts";
+import { dbPool } from "../../config/databaseConfig.ts";
 import "dotenv/config";
 import { generateHashedPassword } from "../../utils/generate-password-hash.ts";
 import { env } from "../../config/envConfig.ts";
