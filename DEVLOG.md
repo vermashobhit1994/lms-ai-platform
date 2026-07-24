@@ -415,53 +415,53 @@ course includes
 **Hours worked:** 10hr 88min
 
 7:48AM - 8:15AM (27min)
-- writing task done yesterday and task to be done today in DEVLOG.md 
+- writing task done yesterday and task to be done today in DEVLOG.md
 
-8:15AM - 8:40AM (25min) 
-- work 
+8:15AM - 8:40AM (25min)
+- work
 
-8:40AM - 9:15AM 
-- break 
+8:40AM - 9:15AM
+- break
 
 9:15AM - 10:01AM (46min)
-- work 
+- work
 
-10:01AM - 10:08AM 
-- body task 
+10:01AM - 10:08AM
+- body task
 
-10:08AM - 11:23AM(1hr 15min) 
-- work 
+10:08AM - 11:23AM(1hr 15min)
+- work
 
-11:23AM - 1:00PM 
+11:23AM - 1:00PM
 - sleeping
 
-1:00PM - 1:10PM 
-- body work + food 
+1:00PM - 1:10PM
+- body work + food
 
-1:00PM - 9:00PM (8hr) 
-- work 
+1:00PM - 9:00PM (8hr)
+- work
 
 **What I did:**
-1. create registration form at frontend and link to backend via api 
-2. hashing password 
-3. understanding tables users, roles, user_roles by running SQL commands in psql 
-   and how it link to feature to be implemented. 
+1. create registration form at frontend and link to backend via api
+2. hashing password
+3. understanding tables users, roles, user_roles by running SQL commands in psql
+   and how it link to feature to be implemented.
    understanding database design for above tables.
-4. understand how data gets stored in database when user tries to register    
+4. understand how data gets stored in database when user tries to register
 
 **What I learned:**
-1. why for every step done to store data when user tries to register 
+1. why for every step done to store data when user tries to register
 2. why for using cors in middleware
-3. why for using argon2 
+3. why for using argon2
 
 **Blockers / what I'm stuck on:**
-1. what are steps done for sanitization and validation of user register data (from frontend) to ensure security when storing it in database. 
+1. what are steps done for sanitization and validation of user register data (from frontend) to ensure security when storing it in database.
 2. what are steps done for users session management when using JWT (access and refresh token)
 
 **Plan for tomorrow:**
-1. understand why access and refresh tokens are used when login user 
+1. understand why access and refresh tokens are used when login user
 2. complete login and register functionality by understand
-   1. how features to be implemnted are linked to database design, api, folder structure 
+   1. how features to be implemnted are linked to database design, api, folder structure
    2. implement rbac in middleware
 
 
@@ -469,59 +469,194 @@ course includes
 ## Day 8 - 2026-07-19
 
 **Hours worked:**
-7:07AM - 7:37AM 
-- writing task done yesterday and what to be done today 
+7:07AM - 7:37AM
+- writing task done yesterday and what to be done today
 
 7:37AM - 8:40AM
-- understand headers used by helmet node package 
+- understand headers used by helmet node package
 
-8:40AM - 9:08AM 
-- break 
+8:40AM - 9:08AM
+- break
 
-9:08AM - 10:23AM - read about express 
-10:23AM - 10:50AM - sleeping + brushing + food 
-10:50AM - 4:00PM - understanding software architecture design patterns used for backend 
-4:00AM - 8:00PM - outside work   
+9:08AM - 10:23AM - read about express
+10:23AM - 10:50AM - sleeping + brushing + food
+10:50AM - 4:00PM - understanding software architecture design patterns used for backend
+4:00AM - 8:00PM - outside work
 
 **What I did:**
-1. refactor code to understand software architecture design patterns used from 
-   getting api request to writing data in database. 
-   
-  
+1. refactor code to understand software architecture design patterns used from
+   getting api request to writing data in database.
+
+
 
 **What I learned:**
 1. steps to be done from api request by frontend to writing database
    - software architecture design patterns used.
-	 - why, what and How? 
+	 - why, what and How?
 
 **Blockers / what I'm stuck on:**
-1. why behind software architecture design patterns used? 
-2. why behine monolithic folder structure used? 
+1. why behind software architecture design patterns used?
+2. why behine monolithic folder structure used?
 
 **Plan for tomorrow:**
-1. find out why behine software architecture design patterns from getting request at api 
-   to writing data in database. 
-   
+1. find out why behine software architecture design patterns from getting request at api
+   to writing data in database.
+
 
 
 ## Day 9 - 2026-07-20
 
 **Hours worked:**
 
-9:20AM - 9:30AM 
-- writing tasks done yesterday 
+9:20AM - 9:30AM
+- writing tasks done yesterday
 
-9:30AM - 9:50AM 
+9:30AM - 9:50AM
 - break
 
+9:50AM - 9:52AM
+- pushing changes
+
+9:52AM - 12:17PM
+- understanding different software architecture patterns
+
+12:17PM - 12:24PM
+- body work
+
+12:24PM - 12:58PM
+- find out design pattern used in folder structure, organizing files
+
+12:58PM - 13:00PM
+- bank task
+
+13:00PM- 14:13PM
+- understand why behind getting data to server to store in database.
+
+14:13PM - 15:46PM
+- dinner + rest
 
 **What I did:**
-   
-  
+
+
 
 **What I learned:**
+
 
 **Blockers / what I'm stuck on:**
 
 **Plan for tomorrow:**
-   
+
+
+
+## Day 10 - 2026-07-21
+
+**Hours worked:**
+
+7:42AM - 8:40AM
+- understand validation in zod schema
+
+8:40AM - 9:20AM
+- break
+
+9:20AM- 11:01AM
+- test functionality from getting api request to store in database
+
+11:01AM - 11:03AM
+- toilet
+
+**What I did:**
+
+
+
+**What I learned:**
+
+
+**Blockers / what I'm stuck on:**
+
+**Plan for tomorrow:**
+
+
+
+## Day 11 - 2026-07-22
+
+**Hours worked:**
+
+7:28AM - 7:30AM
+- attendance marked
+
+7:30AM - 9:00AM
+-
+
+9:00AM - 9:25AM
+-
+
+9:25AM - 14:08PM
+-
+
+
+**What I did:**
+
+
+
+**What I learned:**
+
+
+**Blockers / what I'm stuck on:**
+1. Bug
+   - I'm writing to database but it's writing twice i.e. showing data already exists
+     - root cause
+       - due to different version that I'm checking on psql shell and using in application
+
+**Plan for tomorrow:**
+
+
+## Day 12 - 2026-07-23
+
+**Hours worked:**
+
+5:09AM - 5:15AM
+- laptop setup
+
+
+**What I did:**
+
+
+
+**What I learned:**
+
+
+**Blockers / what I'm stuck on:**
+
+
+**Plan for tomorrow:**
+
+
+
+
+## Day 13 - 2026-07-24
+
+**Hours worked:**
+
+
+
+**What I did:**
+
+
+
+**What I learned:**
+
+
+**Blockers / what I'm stuck on:**
+1. error handling in database, database migrations, database seeders
+
+**Plan for tomorrow:**
+1. file header and function documentation
+2. error handling
+3. test cases - api,
+4. replace console with logger
+5. login backend api implement
+   - api for getting new refresh token
+   - api for invalidate refresh token
+6. api for return current authenticated user profile
+7. *Create steps how to proceed for implement further functionality*
+   - step by step plan
