@@ -1,34 +1,61 @@
+/**
+ * @file 01_create_empty_db.ts
+ * @module db/scripts
+ * @product LMS-AI Platform
+ * @company Vertexon Learning Technologies Pvt Ltd
+ * @copyright 2026 Vertexon Learning Technologies Pvt Ltd. Proprietary and confidential.
+ * @license UNLICENSED — see LICENSE.md at repository root.
+ *
+ * @description
+ * !!WARNING - destroy existing Database
+ * Create Empty database by running migration script used to create empty database
+ *
+ * @purpose
+ * Administrative & Architecture decision to separate database
+ * provisioning from database schema management as per Single
+ * Responsibility Principle Software guideline
+ *
+ * @see TECHNICAL_DECISIONS_ASSUMPTIONS.md
+ * technical decisions & assumptions taken while structuring
+ * and architecture design of backend
+ *
+ * @see docs/api-spec.yaml
+ * How to use API contract as per OpenAPI specification
+ */
+
 import "dotenv/config";
 import { Pool } from "pg";
+import fs from "node:fs/promises";
+import { env } from "../../config/envConfig.ts";
 
 
+const adminPool = new Pool({
+    host: env.DB_HOST,
+    port: env.DB_PORT,
+    user: env.DB_USER,
+    password: env.DB_PASSWORD,
 
-
-const pool = new Pool({
-    host: process.env.DB_HOST,
-    port: Number(process.env.DB_PORT),
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_ADMIN_NAME,
+    // IMPORTANT
+    database: env.DB_ADMIN_NAME,
 });
 
+/**
+ * @description create empty database using default database credentials
+ */
 async function createEmptyDatabase() {
 
     try {
-        await pool.query(
-            `SELECT pg_terminate_backend(pid)
-                 FROM pg_stat_activity
-                 WHERE datname = $1
-                 AND pid <> pg_backend_pid();
-                 `,
-            [process.env.DB_NAME]);
-        await pool.query(
-            `DROP DATABASE IF EXISTS "${process.env.DB_NAME}";`);
-        await pool.query(
-            `CREATE DATABASE  "${process.env.DB_NAME}";`,);
+        const filePath = "src\\db\\scripts\\01_create_empty_database.sql"
+        const sql = await fs.readFile(filePath, "utf-8");
+        const finalSql = sql.replaceAll(
+            "{{DB_NAME}}",
+            env.DB_NAME
+        );
 
+        await adminPool.query(
+            finalSql);
     } finally {
-        await pool.end();
+        await adminPool.end();
     }
 }
 

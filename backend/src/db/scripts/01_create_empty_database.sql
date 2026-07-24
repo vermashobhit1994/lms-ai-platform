@@ -9,8 +9,8 @@
 
 SELECT pg_terminate_backend(pid)
 FROM pg_stat_activity
-WHERE datname = 'lms_ai_db'
+WHERE datname = '{{DB_NAME}}'
   AND pid <> pg_backend_pid();
 
-DROP DATABASE IF EXISTS lms_ai_db;
-CREATE DATABASE lms_ai_db;
+DROP DATABASE IF EXISTS "{{DB_NAME}}";
+CREATE DATABASE "{{DB_NAME}}";
