@@ -7,8 +7,12 @@
  * @license UNLICENSED — see LICENSE.md at repository root.
  *
  * @description
+ * Initialize database with predefined values to populate and write data by user
+ *
  *
  * @purpose
+ * populate database with initial or sample data after database schema
+ * (tables, indexes, constraints) have been created.
  *
  * @see TECHNICAL_DECISIONS_ASSUMPTIONS.md
  * technical decisions & assumptions taken while structuring
@@ -17,27 +21,21 @@
  * @see docs/api-spec.yaml
  * How to use API contract as per OpenAPI specification
  */
-import { Pool } from "pg";
+
 import fs from "node:fs/promises";
 import "dotenv/config";
+import { dbPool } from "../../config/database.ts";
 
-const pool = new Pool({
-    host: process.env.DB_HOST,
-    port: Number(process.env.DB_PORT),
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-});
 async function runSeeders() {
     console.log("run seeders");
     try {
         const sql = await fs.readFile(
             "src\\db\\seeders\\001_user_roles.sql",
             "utf8");
-        await pool.query(sql);
+        await dbPool.query(sql);
     }
     finally {
-        await pool.end();
+        await dbPool.end();
     }
 }
 runSeeders().catch((err) => {
