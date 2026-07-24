@@ -11,7 +11,8 @@
     "start": "node dist/server.js",
     "db:create-empty": "tsx src/db/scripts/01_create_empty_db.ts --ignoreConfig",
     "db:migrate": "tsx src/db/scripts/02_run_db_migrations.ts --ignoreConfig",
-    "db:seed": "tsx src/db/scripts/03_run_db_seeders.ts --ignoreConfig"
+    "db:seed": "tsx src/db/scripts/03_run_db_seeders.ts --ignoreConfig",
+    "db:create-admin-user": "tsx src/db/scripts/04_create_admin_user.ts --ignoreConfig"
   },
   "keywords": [
     "lms",

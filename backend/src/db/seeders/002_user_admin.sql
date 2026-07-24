@@ -1,11 +1,13 @@
 -- 1) Insert admin user (use a REAL argon2id hash, not '$argon2id$...')
+
+-- Common Table Expression (CTE) to store data in temporary table and
+-- store generated user id in new_admin
 WITH new_admin AS (
   INSERT INTO users (full_name, email, password_hash)
   VALUES (
-    'System Admin',
-    'admin@example.com',
-    -- TODO: implement argon2id hash in Step3 of password service
-    '$argon2id$v=19$m=65536,t=3,p=4$REPLACE_WITH_REAL_SALT_AND_HASH'
+    $1,
+    $2,
+    $3
   )
   RETURNING id
 )
