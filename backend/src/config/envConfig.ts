@@ -27,18 +27,29 @@
  */
 
 import 'dotenv/config';
-const CORS_ORIGIN_DEVELOPMENT = process.env.CORS_ORIGIN_DEVELOPMENT;
-const CORS_ORIGIN_BUILD = process.env.CORS_ORIGIN_BUILD;
 
-if (!CORS_ORIGIN_DEVELOPMENT) {
-    throw new Error("CORS_ORIGIN_DEVELOPMENT is missing");
-}
+import { z } from "zod";
 
-if (!CORS_ORIGIN_BUILD) {
-    throw new Error("CORS_ORIGIN_BUILD is missing");
-}
+const envSchema = z.object({
+    NODE_ENV: z.string().min(1),
+    DB_PORT: z.coerce.number(),
+    DATABASE_URL: z.url(),
+    JWT_ACCESS_SECRET: z.string().min(32),
+    JWT_ACCESS_TTL: z.string().min(2),
+    REFRESH_TOKEN_TTL_DAYS: z.coerce.number(),
+    CORS_ORIGIN_DEVELOPMENT: z.url(),
+    CORS_ORIGIN_BUILD: z.url(),
+    DB_PASSWORD: z.string().min(1),
+    DB_NAME: z.string().min(1),
+    DB_USER: z.string().min(1),
+    DB_HOST: z.string().min(1),
+    SERVER_PORT: z.coerce.number(),
+    DB_ADMIN_NAME: z.string().min(1),
+    DB_VERSION: z.coerce.number().min(2),
 
-export const env = {
-    CORS_ORIGIN_DEVELOPMENT,
-    CORS_ORIGIN_BUILD
-};
+    DEFAULT_ADMIN_EMAIL: z.email(),
+    DEFAULT_ADMIN_PASSWORD: z.string().min(12),
+    DEFAULT_ADMIN_NAME: z.string().min(1),
+});
+
+export const env = envSchema.parse(process.env)
