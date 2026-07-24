@@ -6,6 +6,13 @@ import { DatabaseUnavailableError } from "../modules/auth/auth.errors.ts";
 import { type Request, type Response, type NextFunction } from "express";
 dotenv.config();
 
+export const dbPool = new Pool({
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT),
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+});
 
 const port = Number(process.env.DB_PORT);
 if (Number.isNaN(port)) {
