@@ -1,34 +1,53 @@
+/**
+ * @file databaseConfig.ts
+ * @module config
+ * @product LMS-AI Platform
+ * @company Vertexon Learning Technologies Pvt Ltd
+ * @copyright 2026 Vertexon Learning Technologies Pvt Ltd. Proprietary and confidential.
+ * @license UNLICENSED — see LICENSE.md at repository root.
+ *
+ * @description
+ *
+ * @purpose
+ *
+ * @see TECHNICAL_DECISIONS_ASSUMPTIONS.md
+ * technical decisions & assumptions taken while structuring
+ * and architecture design of backend
+ *
+ * @see docs/api-spec.yaml
+ * How to use API contract as per OpenAPI specification
+ */
+
 import { Pool} from "pg";
 
 
-import dotenv from "dotenv";
 import { DatabaseUnavailableError } from "../modules/auth/auth.errors.ts";
 import { type Request, type Response, type NextFunction } from "express";
-dotenv.config();
-
+import { logDebug } from "../utils/logger.ts";
+import { env } from "./envConfig.ts";
 export const dbPool = new Pool({
-    host: process.env.DB_HOST,
-    port: Number(process.env.DB_PORT),
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
+    host: env.DB_HOST,
+    port: Number(env.DB_PORT),
+    user: env.DB_USER,
+    password: env.DB_PASSWORD,
+    database: env.DB_NAME,
 });
 
-const port = Number(process.env.DB_PORT);
+const port = Number(env.DB_PORT);
 if (Number.isNaN(port)) {
     throw new Error(`DATABASE PORT is invalid`);
 }
 
 const userPoolConfig = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
+    host: env.DB_HOST,
+    user: env.DB_USER,
     max: 20,
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000,
     maxLifetimeSeconds: 60,
-    password: process.env.DB_PASSWORD,
-    port: Number(process.env.DB_PORT),
-    database: process.env.DB_NAME,
+    password: env.DB_PASSWORD,
+    port: Number(env.DB_PORT),
+    database: env.DB_NAME,
 };
 export const userPool = new Pool(userPoolConfig);
 
@@ -39,11 +58,9 @@ export async function checkDBConnection(req: Request,
     try {
 
         await userPool.query("SELECT 1 AS STATUS");
-
-        // console.log(`${process.env.DB_NAME} database connected successfully `);
         next();
     } catch (err) {
-        // console.error("Database unavailable:", err);
+        logDebug("Database unavailable:", err);
 
         next(new DatabaseUnavailableError());
     } finally {
