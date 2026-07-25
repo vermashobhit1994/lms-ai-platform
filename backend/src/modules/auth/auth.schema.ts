@@ -54,3 +54,13 @@ export const registerUserSchema = z.strictObject({
   password: z.string().min(12).max(128),
   role: z.enum(['student', 'instructor', 'admin']),
 });
+
+
+export const loginUserSchema = z.strictObject({
+  email: z.preprocess((value) => typeof value === "string"
+    ? value.trim().toLowerCase()
+    : value,
+    z.email().max(180)
+  ),
+  password: z.string().min(12).max(128),
+})

@@ -27,7 +27,7 @@
 // 4. invalidate refresh token
 // 5. return current authenticated user profile
 
-import { type userDBType, type RegisterUserInputType } from "./auth.types.ts";
+import { type userDBType, type RegisterUserInputType, type LoginUserInputType } from "./auth.types.ts";
 import { createUserDB } from "./auth.repository.ts";
 import { logDebug, logError } from "../../utils/logger.ts";
 import { generateHashedPassword } from "../../utils/generate-password-hash.ts";
@@ -78,4 +78,14 @@ export const registerUserService = async (userData: RegisterUserInputType) => {
     }
 
 
+}
+
+export const loginUserService = async (userData: LoginUserInputType) => {
+    const loginUserResponseData = {
+        "access_token": "eyJhbGciOi...",
+        "refresh_token": "dGhpc2lzYXJl...",
+        "user": { "id": "uuid", "full_name": "Ananya Sharma", "role": "student" }
+    }
+
+    return loginUserResponseData
 }

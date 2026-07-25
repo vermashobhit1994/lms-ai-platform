@@ -44,8 +44,8 @@
 
 // calls service using req body
 import type { Request, Response, NextFunction } from "express";
-import { type RegisterUserInputType, type RegisterUserResponseType } from "./auth.types.ts";
-import { registerUserService } from "./auth.service.ts";
+import { type LoginUserInputType, type loginUserResponseType, type RegisterUserInputType, type RegisterUserResponseType } from "./auth.types.ts";
+import { loginUserService, registerUserService } from "./auth.service.ts";
 import { logDebug, logError } from "../../utils/logger.ts";
 
 //TODO: add documentation for function
@@ -74,5 +74,34 @@ export async function registerUserController(req: Request, resp: Response, next:
         logError("registerUserController error", err)
         next(err);
     }
+
+}
+
+//TODO: add documentation for function
+/**
+ * @description
+ * @param req
+ * @param resp
+ * @param next
+ */
+
+export async function loginUserController(req: Request, resp: Response, next: NextFunction) {
+    logDebug("login user controller");
+
+    // 1. Read validated and verified data
+    const loginUserInputData: LoginUserInputType = req.body;
+
+    // 2. call service
+    try {
+        logDebug("loginUserController before calling service", loginUserInputData);
+        const loginUserResponseData: loginUserResponseType = await loginUserService(loginUserInputData)
+        logDebug("loginUserController after calling service", loginUserResponseData);
+
+        resp.status(201).json(loginUserResponseData);
+    } catch (err) {
+        logError("loginUserController error", err)
+        next(err);
+    }
+
 
 }

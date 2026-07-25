@@ -25,9 +25,11 @@
 import express, { type Request, type Response, type NextFunction } from 'express';
 import { registerUserSchema } from './auth.schema.ts';
 import { validateRegisterUserSchema } from '../../midddleware/validateRegisteredUserSchema.ts';
+import { loginUserSchema } from './auth.schema.ts';
 
 import { checkDBConnection } from '../../config/databaseConfig.ts';
-import { registerUserController } from './auth.controller.ts';
+import { registerUserController, loginUserController } from './auth.controller.ts';
+import { validateLoginUserSchema } from '../../midddleware/validateLoginUserSchema.ts';
 
 export const authRouter = express.Router();
 
@@ -44,6 +46,8 @@ authRouter.post("/register", checkDBConnection, validateRegisterUserSchema(regis
 
 // TODO: implement login route
 // TODO: implement schema validation
+authRouter.post("/login", checkDBConnection, validateLoginUserSchema(loginUserSchema),
+    loginUserController)
 
 // TODO: implement refresh route because it issues new access token
 // TODO: implement schema validation

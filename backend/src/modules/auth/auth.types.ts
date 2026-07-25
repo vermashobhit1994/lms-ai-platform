@@ -65,3 +65,18 @@ export interface userDBType {
     "hashedPassword": string;
     "role": string;
 }
+
+export interface LoginUserInputType {
+    email: string;
+    password: string;
+}
+
+export interface loginUserResponseType {
+    access_token: string;
+    refresh_token: string;
+    user: {
+        id: string;
+        full_name: string;
+        role: string;
+    }
+}
