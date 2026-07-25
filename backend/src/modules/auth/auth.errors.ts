@@ -42,22 +42,18 @@ export class AppError extends Error {
 
         // assign Error object name to improve
         // stack traces, server logs, error monitoring tools, debugging,
-        // console output
         this.name = this.constructor.name;
 
         this.field = field;
 
     }
 }
-
+/**
+ * @description
+ */
 export class UserAlreadyExistsError extends AppError {
     constructor(field: string) {
         super(409, "EMAIL_ALREADY_EXISTS", "User with this Email already exists", field)
-    }
-}
-export class MissingValuesError extends AppError {
-    constructor(field: string) {
-        super(409, "MISSING_VALUES", "Please provide all the required values", field)
     }
 }
 
@@ -67,11 +63,6 @@ export class ServerInternalError extends AppError {
     }
 }
 
-export class DBWriteError extends AppError {
-    constructor() {
-        super(409, "DB_WRITE_ERROR", "user data can't write in database")
-    }
-}
 
 
 export class ValidationError extends AppError {
@@ -84,6 +75,65 @@ export class ValidationError extends AppError {
             "Validation failed for registration of user",
         );
         this.errors = errors;
+    }
+}
+
+
+
+export class InvalidReferenceError extends AppError {
+    constructor() {
+        super(
+            400,
+            "INVALID_REFERENCE",
+            "Reference resource doesn't exists"
+        );
+    }
+}
+
+export class InvalidRequestError extends AppError {
+    constructor() {
+        super(
+            400,
+            "INVALID_REQUEST",
+            "One or more required fields are missing"
+        )
+    }
+}
+export class InvalidInputError extends AppError {
+    constructor() {
+        super(
+            400,
+            "INVALID_INPUT",
+            "Invalid Input data"
+        )
+    }
+}
+export class ConcurrentModificationError extends AppError {
+    constructor() {
+        super(
+            409,
+            "CONCURRENT_MODIFICATION",
+            "The request conflicted with another operation. Please retry"
+        )
+    }
+}
+export class ServiceUnavailableError extends AppError {
+    constructor() {
+        super(
+            503,
+            "SERVICE_UNAVAILABLE",
+            "Service temporarily unavailable. Please retry"
+        )
+    }
+}
+
+export class RequestTimeoutError extends AppError {
+    constructor() {
+        super(
+            503,
+            "REQUEST_TIMEOUT",
+            "Request timed out. Please try again."
+        )
     }
 }
 

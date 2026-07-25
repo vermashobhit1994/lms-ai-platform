@@ -48,7 +48,7 @@ import { AppError, ValidationError, DatabaseUnavailableError } from "../modules/
  * @param next
  * @returns error JSON data in structured format for HTTP request
  */
-
+import { logger } from "../config/loggerConfig.ts";
 export function appErrorHandler(
     err: Error,
     req: Request,
@@ -58,7 +58,7 @@ export function appErrorHandler(
     void next;
     void req;
 
-
+    logger.error("global error handler:", err)
 
     if (err instanceof ValidationError) {
         return resp.status(err.statusCode).json({
