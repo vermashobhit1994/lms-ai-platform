@@ -23,11 +23,11 @@
  */
 
 import fs from "node:fs/promises";
-import "dotenv/config";
 import { dbPool } from "../../config/databaseConfig.ts";
+import { logDebug, logError } from "../../utils/logger.ts";
 
 async function runSeeders() {
-    console.log("run seeders");
+    logDebug("run seeders");
     try {
         const sql = await fs.readFile(
             "src\\db\\seeders\\001_user_roles.sql",
@@ -39,6 +39,6 @@ async function runSeeders() {
     }
 }
 runSeeders().catch((err) => {
-    console.error(err);
+    logError(err);
     process.exit(1);
 });

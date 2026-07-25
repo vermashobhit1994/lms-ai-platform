@@ -32,14 +32,16 @@
 
 
 import fs from "node:fs/promises";
-import "dotenv/config"
 import { dbPool } from "../../config/databaseConfig.ts";
+import { logDebug, logError } from "../../utils/logger.ts";
 
 /**
  * @description run all migration scripts to create tables and fields
  */
 async function runDBMigrations() {
-    console.log("running Database migrations");
+    //TODO: handle error when migration is run twice
+    logDebug("running Database migrations");
+
     try {
         let sql = await fs.readFile(
             "src\\db\\migrations\\001_enable_extensions.sql",
@@ -72,6 +74,6 @@ async function runDBMigrations() {
     }
 }
 runDBMigrations().catch((err) => {
-    console.error(err);
+    logError(err);
     process.exit(1);
 });

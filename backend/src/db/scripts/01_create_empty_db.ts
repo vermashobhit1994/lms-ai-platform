@@ -23,11 +23,11 @@
  * How to use API contract as per OpenAPI specification
  */
 
-import "dotenv/config";
+
 import { Pool } from "pg";
 import fs from "node:fs/promises";
 import { env } from "../../config/envConfig.ts";
-
+import { logger } from "../../config/loggerConfig.ts";
 
 const adminPool = new Pool({
     host: env.DB_HOST,
@@ -77,6 +77,6 @@ async function createEmptyDatabase() {
 }
 
 createEmptyDatabase().catch((err) => {
-    console.error(err);
+    logger.error(err);
     process.exit(1);
 });

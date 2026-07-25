@@ -21,9 +21,9 @@
  */
 import fs from "node:fs/promises";
 import { dbPool } from "../../config/databaseConfig.ts";
-import "dotenv/config";
 import { generateHashedPassword } from "../../utils/generate-password-hash.ts";
 import { env } from "../../config/envConfig.ts";
+import { logError } from "../../utils/logger.ts";
 
 /**
  * @description
@@ -36,7 +36,7 @@ const createAdminUser = async () => {
         const sql = await fs.readFile(filePath, "utf-8");
 
         const passwordHash = await generateHashedPassword(env.DEFAULT_ADMIN_PASSWORD);
-        console.log(passwordHash);
+
         await dbPool.query(sql, [
             env.DEFAULT_ADMIN_NAME,
             env.DEFAULT_ADMIN_EMAIL,
@@ -51,6 +51,6 @@ const createAdminUser = async () => {
  * @description
  */
 createAdminUser().catch((err) => {
-    console.error(err);
+    logError(err);
     process.exit(1);
 });
