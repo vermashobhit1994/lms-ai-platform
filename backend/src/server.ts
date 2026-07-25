@@ -32,12 +32,11 @@
 import express, { type Express, type Request, type Response, type NextFunction } from 'express';
 
 import cors from "cors";
-
 import { corsConfigOptions } from './config/corsConfig.ts';
 import { authRouter } from './modules/auth/auth.routes.ts';
 
 import { appErrorHandler } from './midddleware/app_error_handler.ts';
-
+import { logDebug } from './utils/logger.ts';
 
 // Step2 - create a server
 const app: Express = express();
@@ -56,5 +55,5 @@ app.use("/api/v1/auth", authRouter);
 app.use(appErrorHandler);
 
 app.listen(port, () => {
-    console.log(`Server running on PORT: ${port}`);
+    logDebug(`Server running on PORT: ${port}`);
 });

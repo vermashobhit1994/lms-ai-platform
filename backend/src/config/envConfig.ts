@@ -51,5 +51,5 @@ const envSchema = z.object({
     DEFAULT_ADMIN_PASSWORD: z.string().min(12),
     DEFAULT_ADMIN_NAME: z.string().min(1),
 });
-
+//TODO: error handling
 export const env = envSchema.parse(process.env)
