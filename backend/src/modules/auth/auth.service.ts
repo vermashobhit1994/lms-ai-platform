@@ -7,58 +7,43 @@
  * @license UNLICENSED — see LICENSE.md at repository root.
  *
  * @description
- *
+ * application logic that store client data to database
  *
  *
  * @purpose
- *
+ * Separate business logic from HTTP and database concerns and implement
+ * business rules.
+ * Implement reusuability of service layer by
+ * 1. giving flexibility in changing API
  *
  * @see DECISIONS_TAKEN.md — layered modular architecture
  * @see docs/auth-implementation-guide.md — auth API spec
  */
 
-// functionality implemented for auth
-// 1. register user
+// TODO: functionality implemented for auth
+// 1. register user - done
 // 2. login user
 // 3. issue new refresh token
 // 4. invalidate refresh token
 // 5. return current authenticated user profile
 
-import * as argon2 from "argon2";
-import { ServerInternalError } from "./auth.errors.ts";
 import { type userDBType, type RegisterUserInputType } from "./auth.types.ts";
-/**
- * @description generate hash password to be stored in database at
- *              register of user and login of user
- * @param rawPassword
- * @returns
- */
-const generateHashedPassword = async (rawPassword: string) => {
-    let hashedPassword: string;
-    try {
-        hashedPassword = await argon2.hash(rawPassword);
-        return hashedPassword;
-    } catch (err) {
-        void err;
-        throw new ServerInternalError();
+import { createUserDB } from "./auth.repository.ts";
+import { logDebug, logError } from "../../utils/logger.ts";
+import { generateHashedPassword } from "../../utils/generate-password-hash.ts";
 
-    }
-};
-
-
-
+//TODO: add documentation for register user service
 /**
  * @description business logic to register user and store in database
  * @param userData
  * @returns
  */
 export const registerUserService = async (userData: RegisterUserInputType) => {
-    console.log("Register service executed", new Date().toISOString());
 
 
     // 1. assume more than 1 admins, so if role === admin then it can also register
 
-    // 2. check email uniqueness
+    // 2. check email uniqueness - done in validate schema
 
 
     // 2. store hashed password to database
@@ -73,11 +58,11 @@ export const registerUserService = async (userData: RegisterUserInputType) => {
         "role": userData.role
     };
     try {
+        logDebug("before calling createUserDB ", userDBData);
 
-        //TODO: store data to database
-        //Dummy data for testing only
-        const userCreatedDBData = { id: "2232", full_name: "shobhit", role: "student" };
-        // throw new MissingValuesError("id")
+        const userCreatedDBData = await createUserDB(userDBData);
+        logDebug("after calling createUserDB", userCreatedDBData);
+
         return {
             "user": {
                 "id": userCreatedDBData.id,
@@ -88,7 +73,7 @@ export const registerUserService = async (userData: RegisterUserInputType) => {
         }
 
     } catch (err) {
-        console.log("service catch block");
+        logError("registerUserService Error ", err);
         throw err;
     }
 
