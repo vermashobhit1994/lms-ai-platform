@@ -20,6 +20,10 @@
  */
 
 import { env } from "./envConfig.ts"
+/**
+ * @description define configuration options for cors to enable url
+ *              access by client
+ */
 export const corsConfigOptions = {
     //TODO: change to domain url i.e. https://app.yourdomain.com
     origin: [env.CORS_ORIGIN_DEVELOPMENT, env.CORS_ORIGIN_BUILD],
