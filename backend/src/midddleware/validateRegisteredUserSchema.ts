@@ -30,8 +30,14 @@ import type { Request, Response, NextFunction } from "express";
 import type { ZodType } from "zod";
 import type { ApiErrorResponseType } from "../modules/auth/auth.types.ts";
 import { ValidationError } from "../modules/auth/auth.errors.ts";
+import { logDebug, logError } from "../utils/logger.ts";
 
-
+//TODO: adding documentation for schema
+/**
+ * @description
+ * @param schema
+ * @returns
+ */
 export function validateRegisterUserSchema<T>(schema: ZodType<T>) {
   return (req: Request, resp: Response, next: NextFunction) => {
     const result = schema.safeParse(req.body)
@@ -54,6 +60,7 @@ export function validateRegisterUserSchema<T>(schema: ZodType<T>) {
         }
 
 
+        logError("validateRegisterUserSchema error", result);
 
         return next(
           new ValidationError(
@@ -61,8 +68,10 @@ export function validateRegisterUserSchema<T>(schema: ZodType<T>) {
           )
         );
       }
-      req.body = result.data   // cleaned/normalized data
+
     }
+    logDebug("validateRegisterUserSchema success", result.data);
+    req.body = result.data   // cleaned/normalized data
     next()                   // ← IMPORTANT: pass to controller
   }
 }
