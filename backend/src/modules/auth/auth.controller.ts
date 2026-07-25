@@ -34,14 +34,21 @@
  * How to use API contract as per OpenAPI specification
  */
 
+// TODO: functionality implemented for auth
+// 1. register user - done
+// 2. login user
+// 3. issue new refresh token
+// 4. invalidate refresh token
+// 5. return current authenticated user profile
+
+
 // calls service using req body
 import type { Request, Response, NextFunction } from "express";
 import { type RegisterUserInputType, type RegisterUserResponseType } from "./auth.types.ts";
-import { UserAlreadyExistsError } from "./auth.errors.ts";
 import { registerUserService } from "./auth.service.ts";
+import { logDebug, logError } from "../../utils/logger.ts";
 
-
-
+//TODO: add documentation for function
 /**
  * @description Read validated and verified data, then call service for
  *              processing data and then send response
@@ -50,7 +57,6 @@ import { registerUserService } from "./auth.service.ts";
  * @param next
  */
 export async function registerUserController(req: Request, resp: Response, next: NextFunction) {
-    console.log("Controller Register Request Received", new Date().toISOString());
 
     // 1. Read validated and verified data
     const registerUserInputData: RegisterUserInputType = req.body;
@@ -58,13 +64,14 @@ export async function registerUserController(req: Request, resp: Response, next:
 
     // 2. call service
     try {
-
+        logDebug("registerUserController before calling service", registerUserInputData);
         const registerUserResponseData: RegisterUserResponseType = await registerUserService(registerUserInputData)
-        console.log(registerUserResponseData);
+        logDebug("registerUserController after calling service", registerUserResponseData);
 
         // throw new UserAlreadyExistsError("email");
         resp.status(201).json(registerUserResponseData);
     } catch (err) {
+        logError("registerUserController error", err)
         next(err);
     }
 
