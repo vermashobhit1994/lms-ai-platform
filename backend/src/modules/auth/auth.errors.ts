@@ -166,3 +166,23 @@ export class AccountDisableError extends AppError {
         )
     }
 }
+
+export class TokenGenerationError extends AppError {
+    constructor() {
+        super(
+            500,
+            "INTERNAL_SERVER",
+            "Internal server error"
+        )
+    }
+}
+
+export class SesssionCreationError extends AppError {
+    constructor() {
+        super(
+            500,
+            "LOGIN_INCOMPLETE",
+            "Unable to complete login, Please try again"
+        )
+    }
+}

@@ -44,8 +44,6 @@ export const authRouter = express.Router();
 authRouter.post("/register", checkDBConnection, validateRegisterUserSchema(registerUserSchema),
     registerUserController);
 
-// TODO: implement login route
-// TODO: implement schema validation
 authRouter.post("/login", checkDBConnection, validateLoginUserSchema(loginUserSchema),
     loginUserController)
 

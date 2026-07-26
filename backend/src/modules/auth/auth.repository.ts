@@ -229,3 +229,39 @@ export const findUserByEmailDB = async (userEmail: string):
 
 
 }
+
+export const storeHashRefreshTokenDB = async (session) => {
+
+    try {
+        console.log("storeHashRefreshTokenDB", session);
+
+        const sqlQuery = `INSERT INTO refresh_tokens (
+                        user_id,
+                        token_hash,
+                        expires_at,
+                        user_agent,
+                        ip_address
+                    )
+                    VALUES (
+                        $1,
+                        $2,
+                        $3,
+                        $4,
+                        $5
+                    );`
+        const refreshTokenResult = await userPool.query(sqlQuery, [
+            session.userId,
+            session.tokenHash,
+            session.expiresAt,
+            session.userAgent ?? null,
+            session.ipAddress ?? null,
+        ]);
+        console.log(refreshTokenResult.rows[0]);
+        return refreshTokenResult.rows[0];
+    } catch (err) {
+        console.log("error writing refresh tokens", err);
+        throw err;
+    }
+
+
+}

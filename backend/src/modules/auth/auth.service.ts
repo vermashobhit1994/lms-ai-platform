@@ -28,11 +28,14 @@
 // 5. return current authenticated user profile
 
 import { type userDBType, type RegisterUserInputType, type LoginUserInputType, type LoginUserDBType, type loginUserResponseType } from "./auth.types.ts";
-import { createUserDB, findUserByEmailDB } from "./auth.repository.ts";
+import { createUserDB, findUserByEmailDB, storeHashRefreshTokenDB } from "./auth.repository.ts";
 import { logDebug, logError } from "../../utils/logger.ts";
 import { generateHashedPassword } from "../../utils/generate-password-hash.ts";
 import * as argon2 from "argon2";
-import { AccountDisableError, InvalidCredentialsError } from "./auth.errors.ts";
+import { AccountDisableError, InvalidCredentialsError, SesssionCreationError, TokenGenerationError } from "./auth.errors.ts";
+import crypto from "node:crypto";
+import { SignJWT } from "jose";
+import { env } from "../../config/envConfig.ts";
 
 //TODO: add documentation for register user service
 /**
@@ -82,6 +85,57 @@ export const registerUserService = async (userData: RegisterUserInputType) => {
 
 }
 
+const createSessionService = () => {
+    // 1. generate secure session ID
+    const sessionID = crypto.randomBytes(32).toString('hex');
+
+    // 2. session model
+    interface SessionData {
+        userId: string;
+
+        roles: string[];
+
+        createdAt: number;
+
+        expiresAt: number;
+
+        ipAddress: string;
+
+        userAgent: string;
+    }
+
+    // 3. store session
+
+}
+
+const generateAccessToken = async (user) => {
+    try {
+
+        const secretKey = new TextEncoder().encode(env.JWT_ACCESS_SECRET);
+        // JWT payload are Base64Url-encoded not encrypted
+        const accessToken = await new SignJWT({
+            roles: user.role
+        })
+            .setProtectedHeader({
+                alg: "HS256"
+            })
+            .setSubject(user.id)
+            .setIssuedAt()
+            .setIssuer("lms-ai-api")
+            .setAudience("lms-ai-web")
+            .setExpirationTime(env.JWT_ACCESS_TTL)
+            .sign(secretKey);
+
+        if (!env.JWT_ACCESS_SECRET) {
+            throw new Error("JWT_ACCESS_SECRET is not configured.");
+        }
+
+        return accessToken;
+    } catch (err) {
+        logError("access token generation error: ", err)
+        throw new TokenGenerationError();
+    }
+}
 
 
 /**
@@ -89,7 +143,7 @@ export const registerUserService = async (userData: RegisterUserInputType) => {
  * @param userData
  * @returns
  */
-export const loginUserService = async (userInputData: LoginUserInputType):
+export const loginUserService = async (userInputData: LoginUserInputType, userAgent, userIP):
     Promise<loginUserResponseType> => {
 // 1. validate request i.e. user provided email id and password
 // 2. find user i.e. find user email id, hashed password for active account
@@ -137,21 +191,70 @@ export const loginUserService = async (userInputData: LoginUserInputType):
     }
 
     //--------------------------------------------------------
-    // Step 5
-    // TODO - Create session
-    //--------------------------------------------------------
-
-    // const session = await sessionService.create(user.id);
-
-
-
-    //--------------------------------------------------------
-    // Step 5
-    // TODO
-    // Load roles
+    // Step 5 - Load roles
     //--------------------------------------------------------
 
     const userRole = userDBData.role;
+
+
+    //--------------------------------------------------------
+    // Step 6
+    // TODO - Create session
+    // 1. generate access token - using jose
+    // 2. generate cryptographically secure refresh token
+    // 3. store hashed refresh token
+    // 4. implement /auth/login
+    // 5. implement /auth/refresh (verify, rotate, issue new access token)
+    // 6. implement /auth/logout (revoke, delete refresh token)
+    // 7. implement authentication middleware (verify access token)
+    // 8. implement RBAC middleware
+
+    //--------------------------------------------------------
+
+
+    // 1. generate access token - using jose by sign with Signing key
+    const userAccessToken = await generateAccessToken(userDBData);
+    console.log("gnerated access token: ", userAccessToken);
+
+    // 2. generate refresh token - using crypto module
+    const userRefreshToken = crypto.randomBytes(32).toString("base64");
+
+    // 3. store hashed refresh token
+    // 3.1 generate hashed refresh token
+    const tokenHash = crypto
+        .createHash("sha256")
+        .update(userRefreshToken)
+        .digest("hex");
+
+    // 3.2 store hashed refresh token in database
+    const expiresAt = new Date(
+        new Date(Date.now() + env.REFRESH_TOKEN_TTL_DAYS * 24 * 60 * 60 * 1000),
+    )
+    console.log(expiresAt, userAgent, userIP.split(":").at(-1))
+    const refreshSessionInput = {
+        userId: userDBData.id,
+        tokenHash: tokenHash,
+        expiresAt: expiresAt,
+        userAgent: userAgent,
+        ipAddress: userIP
+    }
+    try {
+
+        const result = await storeHashRefreshTokenDB(refreshSessionInput);
+    } catch (err) {
+        throw new SesssionCreationError();
+    }
+
+
+    // const session = await sessionService.create(user.id);
+
+    // create refresh session
+    // createRefreshSession()
+    // generate access token
+
+    // store refresh token in Redis Database
+
+
 
     //--------------------------------------------------------
     // Step 6
@@ -159,8 +262,8 @@ export const loginUserService = async (userInputData: LoginUserInputType):
     //--------------------------------------------------------
 
     return {
-        access_token: "access-token",
-        refresh_token: "refresh-token",
+        access_token: userAccessToken,
+        refresh_token: userRefreshToken,
 
         user: {
             id: userDBData.id,

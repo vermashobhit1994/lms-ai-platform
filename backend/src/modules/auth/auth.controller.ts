@@ -61,10 +61,10 @@ export async function registerUserController(req: Request, resp: Response, next:
     // 1. Read validated and verified data
     const registerUserInputData: RegisterUserInputType = req.body;
 
-
     // 2. call service
     try {
         logDebug("registerUserController before calling service", registerUserInputData);
+
         const registerUserResponseData: RegisterUserResponseType = await registerUserService(registerUserInputData)
         logDebug("registerUserController after calling service", registerUserResponseData);
 
@@ -94,7 +94,10 @@ export async function loginUserController(req: Request, resp: Response, next: Ne
     // 2. call service
     try {
         logDebug("loginUserController before calling service", loginUserInputData);
-        const loginUserResponseData: loginUserResponseType = await loginUserService(loginUserInputData)
+        const userAgent = req.headers['user-agent']
+        const userIP = req.ip;
+
+        const loginUserResponseData: loginUserResponseType = await loginUserService(loginUserInputData, userAgent, userIP)
         logDebug("loginUserController after calling service", loginUserResponseData);
 
         resp.status(200).json(loginUserResponseData);
