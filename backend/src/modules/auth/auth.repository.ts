@@ -25,12 +25,14 @@ import {
     RequestTimeoutError, ValidationError
 } from "./auth.errors.ts";
 
+import * as argon2 from "argon2";
+
 // create one pool for lifetime of application
 import { userPool } from "../../config/databaseConfig.ts";
-import { Result } from "pg";
-import type { userDBType } from "./auth.types.ts";
+import { DatabaseError, Result } from "pg";
+import { type LoginUserDBType, type userDBType } from "./auth.types.ts";
 import { logger } from "../../config/loggerConfig.ts";
-import { logDebug } from "../../utils/logger.ts";
+import { logDebug, logError } from "../../utils/logger.ts";
 /**
  * @description
  * @returns
@@ -184,4 +186,46 @@ export const createUserDB = async (userData: userDBType) => {
     logDebug("createUserDB success", userDBProfileResult.rows[0]);
     // *.repository file should return database data on success
     return userDBProfileResult.rows[0];
+}
+
+
+/**
+ * @description retrieve user data from database
+ * @param userEmail
+ * @param userHashPassword
+ * @returns
+ * @note handle Unexpected / System errors (e.g. database connection failed,
+ *        SQL syntax error, timeout) to implement separation of responsibilities
+ */
+export const findUserByEmailDB = async (userEmail: string):
+    Promise<LoginUserDBType | null> => {
+    try {
+        // Step1 - return fields to verify password and email id for active user
+        const sqlQuery = `SELECT
+                            u.id,
+                            u.full_name,
+                            u.email,
+                            u.password_hash,
+                            u.is_active,
+                            r.name AS role
+                        FROM users u
+                        INNER JOIN user_roles ur
+                            ON u.id = ur.user_id
+                        INNER JOIN roles r
+                            ON ur.role_id = r.id
+                        WHERE u.email = $1
+                        LIMIT 1;`;
+        const userDBResult = await userPool.query<LoginUserDBType>(sqlQuery, [userEmail]);
+
+        logDebug("findUserByEmail ", userDBResult.rows[0])
+        // Step2 - return data
+        return userDBResult.rows[0] ?? null;
+    } catch (err) {
+        //TODO: catch error that occurs when querying database
+        logError("Failed to query user by email", err);
+
+        throw new DatabaseUnavailableError();
+    }
+
+
 }

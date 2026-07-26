@@ -97,7 +97,7 @@ export async function loginUserController(req: Request, resp: Response, next: Ne
         const loginUserResponseData: loginUserResponseType = await loginUserService(loginUserInputData)
         logDebug("loginUserController after calling service", loginUserResponseData);
 
-        resp.status(201).json(loginUserResponseData);
+        resp.status(200).json(loginUserResponseData);
     } catch (err) {
         logError("loginUserController error", err)
         next(err);

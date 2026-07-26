@@ -146,3 +146,23 @@ export class DatabaseUnavailableError extends AppError {
         );
     }
 }
+
+export class InvalidCredentialsError extends AppError {
+    constructor() {
+        super(
+            401,
+            "INVALID_CREDENTIALS",
+            "Invalid Email or Password"
+        )
+    }
+}
+
+export class AccountDisableError extends AppError {
+    constructor() {
+        super(
+            401,
+            "ACCOUNT_DISABLED",
+            "You don't have permissions to access account"
+        )
+    }
+}

@@ -70,8 +70,15 @@ export interface LoginUserInputType {
     email: string;
     password: string;
 }
-
-export interface loginUserResponseType {
+export interface LoginUserDBType {
+    id: string;
+    full_name: string;
+    email: string;
+    password_hash: string;
+    is_active: boolean;
+    role: string;
+};
+export interface LoginUserResponseType {
     access_token: string;
     refresh_token: string;
     user: {
