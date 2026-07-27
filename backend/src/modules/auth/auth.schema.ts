@@ -64,3 +64,22 @@ export const loginUserSchema = z.strictObject({
   ),
   password: z.string().min(12).max(128),
 })
+
+/**
+ * @description validate http-only cookie (refresh token) coming from
+ * client for below
+ * 1. token exists
+ * 2. token is a string
+ * 3. not empty
+ * 4. reasonable maximum length
+ * @note assume refresh token was stored in HttpOnlyCookie and not in
+ *       request body
+ */
+
+export const refreshTokenSchema = z.strictObject({
+  refresh_token: z
+    .string()
+    .trim()
+    .min(1, "Refresh token is required")
+    .max(4096, "Refresh token is too long"),
+});

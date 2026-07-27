@@ -38,20 +38,31 @@ import { authRouter } from './modules/auth/auth.routes.ts';
 import { appErrorHandler } from './midddleware/app_error_handler.ts';
 import { logDebug } from './utils/logger.ts';
 
+import cookieParser from "cookie-parser";
+
 // Step2 - create a server
 const app: Express = express();
 const port = process.env.SERVER_PORT;
 
-// Step3 - apply cors once globally to enable cors for frontend to enable origins
+// Step3 - prevent Express-specific vulnerabilities or misconfigurations.
+app.disable("x-powered-by");
+
+// Step4 - apply cors once globally to enable cors for frontend to enable origins
 app.use(cors(corsConfigOptions))
 
-// Step4 - register JSON body parser before routes/middleware
+// Step5 - register JSON body parser before routes/middleware
 app.use(express.json());
 
-// Step5 - break down routes into auth specific routes
+// Step6 - register cookie-parser middleware before routes/middleware
+//         to access refresh token
+app.use(cookieParser());
+
+// Step7 - break down routes into auth specific routes
 app.use("/api/v1/auth", authRouter);
 
-// Step6 - global error handler registered in middleware
+
+
+// Step8 - global error handler registered in middleware
 app.use(appErrorHandler);
 
 app.listen(port, () => {
