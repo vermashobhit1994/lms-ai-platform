@@ -44,9 +44,10 @@
 
 // calls service using req body
 import type { Request, Response, NextFunction } from "express";
-import { type LoginUserInputType, type loginUserResponseType, type RegisterUserInputType, type RegisterUserResponseType } from "./auth.types.ts";
+import { type LoginUserInputType, type LoginUserResponseType, type RegisterUserInputType, type RegisterUserResponseType } from "./auth.types.ts";
 import { loginUserService, registerUserService } from "./auth.service.ts";
 import { logDebug, logError } from "../../utils/logger.ts";
+import { env } from "../../config/envConfig.ts";
 
 //TODO: add documentation for function
 /**
@@ -86,6 +87,7 @@ export async function registerUserController(req: Request, resp: Response, next:
  */
 
 export async function loginUserController(req: Request, resp: Response, next: NextFunction) {
+    const API_PATH = "/api/v1/auth/refresh";
     logDebug("login user controller");
 
     // 1. Read validated and verified data
@@ -97,10 +99,33 @@ export async function loginUserController(req: Request, resp: Response, next: Ne
         const userAgent = req.headers['user-agent']
         const userIP = req.ip;
 
-        const loginUserResponseData: loginUserResponseType = await loginUserService(loginUserInputData, userAgent, userIP)
+        const loginUserResponseData: LoginUserResponseType = await loginUserService(loginUserInputData, userAgent, userIP)
         logDebug("loginUserController after calling service", loginUserResponseData);
 
-        resp.status(200).json(loginUserResponseData);
+        console.log("refresh token: ", loginUserResponseData.refresh_token);
+
+        //3. store refresh token in cookie
+        //   refresh token is sent in response header
+        resp.cookie("refresh_token", loginUserResponseData.refresh_token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "development",
+            sameSite: "strict",
+            path: API_PATH,
+            maxAge: env.REFRESH_TOKEN_TTL_DAYS * 24 * 60 * 60 * 1000, // 7 days
+        });
+
+
+
+        resp.status(200).json({
+            "access_token": loginUserResponseData.access_token,
+            "user": {
+                "id": loginUserResponseData.user.id,
+                "full_name": loginUserResponseData.user.full_name,
+                "role": loginUserResponseData.user.role
+            }
+        });
+
+
     } catch (err) {
         logError("loginUserController error", err)
         next(err);

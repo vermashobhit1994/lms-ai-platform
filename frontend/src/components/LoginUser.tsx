@@ -42,6 +42,23 @@ const LoginUser = () => {
 
         }
     }
+    const refreshLoginHandler = async () => {
+        console.log("refresh login handler");
+        try {
+
+            const response = await fetch("http://localhost:3000/api/v1/auth/refresh", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: "include",
+            });
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
 
         <form onSubmit={handleSubmit}>
@@ -59,6 +76,10 @@ const LoginUser = () => {
             <br />
 
             <button type="submit">Submit</button>
+            <br />
+            <br />
+            <button type="button" onClick={refreshLoginHandler}>Refresh</button>
+
         </form>
 
     )

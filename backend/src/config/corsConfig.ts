@@ -27,5 +27,6 @@ import { env } from "./envConfig.ts"
 export const corsConfigOptions = {
     //TODO: change to domain url i.e. https://app.yourdomain.com
     origin: [env.CORS_ORIGIN_DEVELOPMENT, env.CORS_ORIGIN_BUILD],
+    credentials: true,
     optionsSuccessStatus: 200
 }
