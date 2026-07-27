@@ -24,11 +24,13 @@
   "license": "UNLICENSED",
   "packageManager": "pnpm@10.33.4",
   "dependencies": {
+    "cookie-parser": "^1.4.7",
     "express": "^5.2.1",
     "pg": "^8.22.0",
     "winston": "^3.19.0"
   },
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^26.1.1",
