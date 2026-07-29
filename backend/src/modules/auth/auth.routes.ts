@@ -28,7 +28,7 @@ import { validateRegisterUserSchema } from '../../midddleware/validateRegistered
 import { loginUserSchema } from './auth.schema.ts';
 
 import { checkDBConnection } from '../../config/databaseConfig.ts';
-import { accessTokenController, loginUserController, registerUserController } from './auth.controller.ts';
+import { accessTokenController, loginUserController, logoutController, registerUserController } from './auth.controller.ts';
 import { validateLoginUserSchema } from '../../midddleware/validateLoginUserSchema.ts';
 import { validateRefreshTokenSchema } from '../../midddleware/validateRefreshTokenSchema.ts';
 
@@ -85,8 +85,6 @@ authRouter.post("/login", checkDBConnection, validateLoginUserSchema(loginUserSc
 
 
 //TODO: BUG - refresh token is stored in cookie only when /api/v1/auth/refresh hit
-// TODO: implement refresh route because it issues new access token
-// TODO: implement schema validation
 //TODO: refresh api steps
 /*
 1. Receive refresh token
@@ -100,9 +98,6 @@ authRouter.post("/login", checkDBConnection, validateLoginUserSchema(loginUserSc
 9. Generate new access token
 10. Rotate refresh token (recommended)
 11. Return response
-
-
-
 */
 authRouter.post("/refresh", checkDBConnection, validateRefreshTokenSchema(refreshTokenSchema),
     accessTokenController)
@@ -118,6 +113,9 @@ authRouter.post("/refresh", checkDBConnection, validateRefreshTokenSchema(refres
     4. mark revoked
     5. return 204
 */
+authRouter.post("/logout", checkDBConnection, validateRefreshTokenSchema(refreshTokenSchema),
+    logoutController)
+
 
 // TODO: implement me route because it return current authenticated user profile
 // TODO: implement schema validation

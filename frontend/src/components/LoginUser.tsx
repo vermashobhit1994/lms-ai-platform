@@ -84,6 +84,9 @@ const LoginUser = () => {
                 credentials: "include",
             });
             console.log(response.headers.get("content-type"));
+
+            // const data = await response.json();
+            // console.log("recieved data", data);
             if (response.headers.get("content-type") === "text/html; charset=utf-8") {
 
                 console.log(response.status);
@@ -102,6 +105,37 @@ const LoginUser = () => {
             console.error(error);
         }
     }
+
+    const logoutHandler = async () => {
+        console.log("logout handler");
+        try {
+
+            const response = await fetch("http://localhost:3000/api/v1/auth/logout", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: "include",
+            });
+            console.log(response.headers.get("content-type"));
+            if (response.headers.get("content-type") === "text/html; charset=utf-8") {
+
+                console.log(response.status);
+                console.log(response.headers.get("content-type"));
+                const text = await response.text()
+                console.log(text);
+
+            } else if ((response.headers.get("content-type") === "application/json; charset=utf-8")) {
+                const data = await response.json();
+                console.log(data);
+
+            }
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
 
 
     return (
@@ -124,6 +158,10 @@ const LoginUser = () => {
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
             <button type="button" onClick={refreshLoginHandler}>Refresh</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" onClick={logoutHandler}>Logout</button>
+
+
         </form>
 
     )

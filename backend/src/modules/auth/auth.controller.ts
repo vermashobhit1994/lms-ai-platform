@@ -194,3 +194,30 @@ export const accessTokenController = async (req: Request, resp: Response, next: 
         throw err;
     }
 }
+
+/**
+ *
+ * @param req
+ * @param res
+ * @param next
+ * @returns
+ */
+export async function logoutController(
+    req: Request,
+    resp: Response,
+    next: NextFunction
+) {
+    try {
+        // const { refreshToken } = req.cookies;
+        logDebug("logoutController data ", req.cookies.refresh_token);
+
+
+        return resp.status(200).json(
+            { message: 'logout controller working ' }
+        );
+
+    } catch (err) {
+        console.error("logoutController error", err);
+
+    }
+}
