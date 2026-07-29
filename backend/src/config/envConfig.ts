@@ -30,13 +30,15 @@ import 'dotenv/config';
 
 import { z } from "zod";
 
+
+
 const envSchema = z.object({
     NODE_ENV: z.string().min(1),
     DB_PORT: z.coerce.number(),
     DATABASE_URL: z.url(),
     JWT_ACCESS_SECRET: z.string().min(32),
-    JWT_ACCESS_TTL: z.string().min(2),
     REFRESH_TOKEN_TTL_DAYS: z.coerce.number(),
+    JWT_ACCESS_TTL: z.string().min(2),
     CORS_ORIGIN_DEVELOPMENT: z.url(),
     CORS_ORIGIN_BUILD: z.url(),
     DB_PASSWORD: z.string().min(1),
@@ -50,6 +52,17 @@ const envSchema = z.object({
     DEFAULT_ADMIN_EMAIL: z.email(),
     DEFAULT_ADMIN_PASSWORD: z.string().min(12),
     DEFAULT_ADMIN_NAME: z.string().min(1),
+    COOKIE_API_PATH: z
+        .string()
+        .trim()
+        .min(1, "COOKIE_API_PATH is required")
+        .startsWith("/", "COOKIE_API_PATH must start with '/'")
+        .refine(
+            (path) => path === "/" || !path.endsWith("/"),
+            "COOKIE_API_PATH must not end with '/'"
+        ),
+    JWT_ISSUER: z.string(),
+    JWT_AUDIENCE: z.string()
 });
 //TODO: error handling
 export const env = envSchema.parse(process.env)

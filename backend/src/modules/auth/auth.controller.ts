@@ -87,7 +87,7 @@ export async function registerUserController(req: Request, resp: Response, next:
  */
 
 export async function loginUserController(req: Request, resp: Response, next: NextFunction) {
-    const API_PATH = "/api/v1/auth/refresh";
+
     logDebug("login user controller");
 
     // 1. Read validated and verified data
@@ -96,21 +96,26 @@ export async function loginUserController(req: Request, resp: Response, next: Ne
     // 2. call service
     try {
         logDebug("loginUserController before calling service", loginUserInputData);
+        logDebug("loginUserController req.headers ", req.headers);
+        logDebug("loginUserController - req.ip ", req.ip);
+        logDebug("loginUserController req.socket.remoteAddress ", req.socket.remoteAddress);
+        logDebug("loginUserController ", req.headers['x-forwarded-for']);
         const userAgent = req.headers['user-agent']
         const userIP = req.ip;
 
-        const loginUserResponseData: LoginUserResponseType = await loginUserService(loginUserInputData, userAgent, userIP)
+        const loginUserResponseData: LoginUserResponseType = await loginUserService(
+            loginUserInputData, userAgent, userIP)
         logDebug("loginUserController after calling service", loginUserResponseData);
 
-        console.log("refresh token: ", loginUserResponseData.refresh_token);
+        logDebug("refresh token: ", loginUserResponseData.refresh_token);
 
         //3. store refresh token in cookie
         //   refresh token is sent in response header
         resp.cookie("refresh_token", loginUserResponseData.refresh_token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "development",
+            secure: env.NODE_ENV === "production",
             sameSite: "strict",
-            path: API_PATH,
+            path: env.COOKIE_API_PATH,
             maxAge: env.REFRESH_TOKEN_TTL_DAYS * 24 * 60 * 60 * 1000, // 7 days
         });
 
@@ -132,4 +137,30 @@ export async function loginUserController(req: Request, resp: Response, next: Ne
     }
 
 
+}
+
+/**
+ *
+ * @param req
+ * @param resp
+ * @param next
+ */
+export const accessTokenController = async (req: Request, resp: Response, next: NextFunction) => {
+
+
+    logDebug("accessTokenController cookie", req.cookies);
+
+    try {
+
+
+        //TODO: add new access token and sent to client
+        // sending some dummy text for testing response
+        resp.status(200).json({
+            access_token: "access token received",
+        });
+
+    } catch (err) {
+        logError("accessTokenController error", err);
+        throw err;
+    }
 }
