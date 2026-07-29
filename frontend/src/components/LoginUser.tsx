@@ -117,25 +117,29 @@ const LoginUser = () => {
                 },
                 credentials: "include",
             });
-            const data = await response.json();
-            console.log("recieved data", data);
+
             console.log(response.headers.get("content-type"));
             if (response.headers.get("content-type") === "text/html; charset=utf-8") {
 
-                // console.log(response.status);
-                // console.log(response.headers.get("content-type"));
-                // const text = await response.text()
-                // console.log(text);
+                console.log(response.status);
+                console.log(response.headers.get("content-type"));
+                const text = await response.text()
+                console.log(text);
 
             } else if ((response.headers.get("content-type") === "application/json; charset=utf-8")) {
-                // const data = await response.json();
-                // console.log(data);
+                const data = await response.json();
+                console.log(data);
 
             }
 
         } catch (error) {
             console.error(error);
         }
+    }
+
+    const userProfileHandler = async () => {
+        const profile = await getCurrentUser();
+        console.log(profile);
     }
 
 
@@ -162,7 +166,9 @@ const LoginUser = () => {
             <button type="button" onClick={refreshLoginHandler}>Refresh</button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button type="button" onClick={logoutHandler}>Logout</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+            <button type="button" onClick={userProfileHandler}>Get profile</button>
 
         </form>
 

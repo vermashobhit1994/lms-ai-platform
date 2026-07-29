@@ -196,3 +196,21 @@ export class UnauthorizedError extends AppError {
         )
     }
 }
+export class ProfileAccessError extends AppError {
+    constructor(error?: { code?: string, message?: string }) {
+        super(
+            401,
+            error?.code ?? "LOGIN_INCOMPLETE",
+            error?.message ?? "Unable to login. Please try again"
+        )
+    }
+}
+export class ForbiddenError extends AppError {
+    constructor({ message }: { message: string }) {
+        super(
+            401,
+            "NO_PERMISSIONS",
+            message ?? "You don't have required permissions"
+        )
+    }
+}

@@ -28,9 +28,10 @@ import { validateRegisterUserSchema } from '../../midddleware/validateRegistered
 import { loginUserSchema } from './auth.schema.ts';
 
 import { checkDBConnection } from '../../config/databaseConfig.ts';
-import { accessTokenController, loginUserController, logoutController, registerUserController } from './auth.controller.ts';
+import { accessTokenController, loginUserController, logoutController, registerUserController, userProfileController } from './auth.controller.ts';
 import { validateLoginUserSchema } from '../../midddleware/validateLoginUserSchema.ts';
 import { validateRefreshTokenSchema } from '../../midddleware/validateRefreshTokenSchema.ts';
+import { authenticateUser } from '../../midddleware/authenticate.ts';
 
 export const authRouter = express.Router();
 
@@ -126,3 +127,4 @@ authRouter.post("/logout", checkDBConnection, validateRefreshTokenSchema(refresh
     3. Load user
     4. return profile
 */
+authRouter.get("/me", checkDBConnection, authenticateUser, userProfileController);

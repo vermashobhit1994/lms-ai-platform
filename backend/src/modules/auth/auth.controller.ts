@@ -228,3 +228,38 @@ export async function logoutController(
         throw err;
     }
 }
+export const userProfileController = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+
+        /*
+          req.locals.user comes from authenticateUser middleware
+
+          Example:
+          {
+             id:"097bb687...",
+             role:"instructor",
+             sessionId:"93279932..."
+          }
+        */
+
+        const userId = res.locals.user.id;
+
+
+
+
+        return res.status(200).json({
+            user: "user profile returned "
+        });
+
+
+    } catch (err) {
+
+        next(err);
+
+    }
+
+}
