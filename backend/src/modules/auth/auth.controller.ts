@@ -45,7 +45,7 @@
 // calls service using req body
 import type { Request, Response, NextFunction } from "express";
 import { type LoginUserInputType, type LoginUserResponseType, type RegisterUserInputType, type RegisterUserResponseType } from "./auth.types.ts";
-import { loginUserService, refreshTokenService, registerUserService } from "./auth.service.ts";
+import { loginUserService, logoutService, refreshTokenService, registerUserService } from "./auth.service.ts";
 import { logDebug, logError } from "../../utils/logger.ts";
 import { env } from "../../config/envConfig.ts";
 
@@ -212,12 +212,19 @@ export async function logoutController(
         logDebug("logoutController data ", req.cookies.refresh_token);
 
 
-        return resp.status(200).json(
-            { message: 'logout controller working ' }
-        );
+        await logoutService(req.cookies.refresh_token);
+
+        resp.clearCookie("refresh_token", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict",
+            path: "/api/v1/auth",
+        });
+
+        return resp.sendStatus(204);
 
     } catch (err) {
         console.error("logoutController error", err);
-
+        throw err;
     }
 }

@@ -431,6 +431,37 @@ async function issueAccessTokenForSession(
 
 }
 
+/**
+ * @description logout means The server decides that this session is
+ *              no longer trusted and must never be accepted again.
+ * @param refreshToken
+ */
+export async function logoutService(
+    refreshToken: string
+): Promise<void> {
+
+    // Hash refresh token
+    const refreshTokenHash =
+        getHashedRefreshToken(refreshToken);
+
+    logDebug("logout service hashed refresh token", refreshTokenHash);
+
+    // Find session
+    const session =
+        await findSessionByRefreshTokenHashDB(
+            refreshTokenHash
+        );
+    logDebug("logout service findsession", session);
+    // Validate session
+    validateSessionState(session);
+    logDebug("validate session ",)
+
+    // Revoke
+    await revokeCurrentSessionDB(session.id);
+      
+}
+
+
 
 
 
