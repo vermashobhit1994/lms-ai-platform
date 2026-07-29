@@ -45,7 +45,7 @@
 // calls service using req body
 import type { Request, Response, NextFunction } from "express";
 import { type LoginUserInputType, type LoginUserResponseType, type RegisterUserInputType, type RegisterUserResponseType } from "./auth.types.ts";
-import { loginUserService, registerUserService } from "./auth.service.ts";
+import { loginUserService, refreshTokenService, registerUserService } from "./auth.service.ts";
 import { logDebug, logError } from "../../utils/logger.ts";
 import { env } from "../../config/envConfig.ts";
 
@@ -150,13 +150,43 @@ export const accessTokenController = async (req: Request, resp: Response, next: 
 
     logDebug("accessTokenController cookie", req.cookies);
 
+
     try {
 
+        // Step1 - validation of refresh token - already done in middleware
+        // Step2 - read middleware value instead of directly read from
+        //          req.cookies.refresh_token
+        const oldRefreshToken = req.body.refresh_token;
 
-        //TODO: add new access token and sent to client
-        // sending some dummy text for testing response
+
+        /*
+            below are steps done
+            1. validate session
+            2. rotate refresh token
+            3. generate access token
+        */
+        const userAgent = req.headers['user-agent'];
+        const userIP = req.ip;
+        const { accessToken, refreshToken } = await refreshTokenService(oldRefreshToken, userAgent, userIP)
+
+        // 4. set cookie
+        resp.cookie("refresh_token", refreshToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict",
+            path: env.COOKIE_API_PATH,
+            maxAge:
+                env.REFRESH_TOKEN_TTL_DAYS *
+                24 *
+                60 *
+                60 *
+                1000,
+        });
+
+
+        // 5. return response
         resp.status(200).json({
-            access_token: "access token received",
+            access_token: accessToken,
         });
 
     } catch (err) {

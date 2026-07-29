@@ -18,7 +18,7 @@
  */
 
 
-import { DatabaseUnavailableError, UserAlreadyExistsError } from "./auth.errors.ts";
+import { DatabaseUnavailableError, SesssionCreationError, UnauthorizedError, UserAlreadyExistsError } from "./auth.errors.ts";
 import {
     InvalidReferenceError, ServerInternalError, InvalidRequestError
     , InvalidInputError, ConcurrentModificationError, ServiceUnavailableError,
@@ -30,9 +30,10 @@ import * as argon2 from "argon2";
 // create one pool for lifetime of application
 import { userPool } from "../../config/databaseConfig.ts";
 import { DatabaseError, Result } from "pg";
-import { type LoginUserDBType, type userDBType } from "./auth.types.ts";
+import { type LoginUserDBType, type sessionDBInputType, type userDBType, type UserSessionType } from "./auth.types.ts";
 import { logger } from "../../config/loggerConfig.ts";
 import { logDebug, logError } from "../../utils/logger.ts";
+import { error } from "node:console";
 /**
  * @description
  * @returns
@@ -215,14 +216,18 @@ export const findUserByEmailDB = async (userEmail: string):
                             ON ur.role_id = r.id
                         WHERE u.email = $1
                         LIMIT 1;`;
-        const userDBResult = await userPool.query<LoginUserDBType>(sqlQuery, [userEmail]);
-
-        logDebug("findUserByEmail ", userDBResult.rows[0])
+        const userDBResult = await userPool.query<LoginUserDBType>(sqlQuery, [userEmail]) ?? null;
+        if (userDBResult.rowCount === 0) {
+            logError(`user doesn't exsits in database, ${userDBResult.command} SQL command failed`, userDBResult.rows)
+            return null;
+        }
+        logDebug("findUserByEmail ", userDBResult.rows)
         // Step2 - return data
-        return userDBResult.rows[0] ?? null;
+        return userDBResult.rows[0];
     } catch (err) {
         //TODO: catch error that occurs when querying database
-        logError("Failed to query user by email", err);
+        logError(`Failed to query user by email`, err);
+
 
         throw new DatabaseUnavailableError();
     }
@@ -230,10 +235,11 @@ export const findUserByEmailDB = async (userEmail: string):
 
 }
 
-export const storeHashRefreshTokenDB = async (session) => {
+export const storeHashRefreshTokenDB = async (session: sessionDBInputType):
+    Promise<UserSessionType> => {
 
     try {
-        console.log("storeHashRefreshTokenDB", session);
+        logDebug("storeHashRefreshTokenDB", session);
 
         const sqlQuery = `INSERT INTO refresh_tokens (
                         user_id,
@@ -248,20 +254,118 @@ export const storeHashRefreshTokenDB = async (session) => {
                         $3,
                         $4,
                         $5
-                    );`
-        const refreshTokenResult = await userPool.query(sqlQuery, [
+                    )
+                    RETURNING id,token_hash,expires_at,user_agent,ip_address,revoked_at;`
+
+        const refreshTokenResult = await userPool.query<UserSessionType>
+            (sqlQuery, [
             session.userId,
             session.tokenHash,
             session.expiresAt,
             session.userAgent ?? null,
             session.ipAddress ?? null,
         ]);
-        console.log(refreshTokenResult.rows[0]);
+        logDebug("new session data", refreshTokenResult.rows);
+        if (refreshTokenResult.rowCount !== 1) {
+
+            logDebug(`${refreshTokenResult.command} SQL command failed
+                with data: ${refreshTokenResult.rows}`);
+            throw new SesssionCreationError();
+        }
         return refreshTokenResult.rows[0];
     } catch (err) {
-        console.log("error writing refresh tokens", err);
-        throw err;
+        logError("storeHashRefreshTokenDB failed ", err);
+        throw new SesssionCreationError();
     }
 
 
+}
+
+/**
+ *
+ * @param refreshTokenHash
+ * @returns
+ */
+export async function findSessionByRefreshTokenHashDB(
+    refreshTokenHash: string
+) {
+    try {
+        const query = `
+        SELECT
+            id,
+            user_id,
+            token_hash,
+            expires_at,
+            revoked_at
+        FROM refresh_tokens
+        WHERE token_hash = $1
+        LIMIT 1
+    `;
+
+        const { rows } = await userPool.query(query, [refreshTokenHash]);
+        logDebug("findSessionByRefreshTokenHash: ", rows);
+        return rows[0] ?? null;
+    } catch (err) {
+        logError("findSessionByRefreshTokenHash ", err)
+        throw new SesssionCreationError();
+    }
+}
+
+/**
+ *
+ * @param userId
+ * @returns
+ */
+export async function findUserAuthInfoByIdDB(userId: string) {
+    try {
+        const query = `
+                        SELECT
+                    u.id,
+                    u.full_name,
+                    u.email,
+                    u.is_active,
+                    r.name AS role
+                FROM users u
+                INNER JOIN user_roles ur
+                    ON u.id = ur.user_id
+                INNER JOIN roles r
+                    ON ur.role_id = r.id
+                WHERE u.id = $1
+                LIMIT 1;
+                `;
+
+        const { rows } = await userPool.query(query, [userId]);
+        logDebug("findUserByID rows", rows);
+        return rows[0];
+    } catch (err) {
+        logError("findUserByID error", err);
+        throw new SesssionCreationError();
+    }
+}
+
+/**
+ *
+ * @param sessionId
+ * @returns
+ */
+export async function revokeCurrentSessionDB(sessionId: string) {
+    try {
+
+        const query = `
+                       UPDATE refresh_tokens
+                        SET revoked_at = NOW()
+                        WHERE id = $1
+                        AND revoked_at IS NULL
+                        RETURNING revoked_at;
+                    `;
+
+        const { rows } = await userPool.query(query, [
+            sessionId
+        ]);
+        logDebug("revokeCurrentSessionDB: ", rows);
+        return rows[0];
+    } catch (err) {
+        logError("revokeCurrentSessionDB error", err);
+        throw new UnauthorizedError();
+    }
 }

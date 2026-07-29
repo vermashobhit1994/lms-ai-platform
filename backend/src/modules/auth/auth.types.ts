@@ -87,3 +87,48 @@ export interface LoginUserResponseType {
         role: string;
     }
 }
+
+export interface UserSessionType {
+    id: string;
+    user_id: string;
+    token_hash: string;
+    expires_at: Date;
+    revoked_at: Date | null;
+}
+export type UserAuthInfoType = {
+    id: string;
+    full_name: string;
+    email: string;
+    is_active: boolean;
+    role: string;
+};
+
+export interface sessionDBInputType {
+    userId: string;
+    tokenHash: string;
+    expiresAt: Date | null,
+    userAgent: string | null;
+    ipAddress: string | null;
+}
+
+
+export type ValidatedSessionType = {
+    session: UserSessionType;
+    user: UserAuthInfoType;
+};
+export interface RotateRefreshTokenInput {
+    oldSession: UserSessionType;
+    userAgent?: string;
+    userIP?: string;
+}
+
+export interface RotateRefreshTokenResult {
+    refreshToken: string;
+    session: UserSessionType;
+}
+
+export type GenerateAccessTokenPayload = {
+    userId: string;
+    role: string;
+    sessionId: string;
+};

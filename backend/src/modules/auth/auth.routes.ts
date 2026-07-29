@@ -28,7 +28,7 @@ import { validateRegisterUserSchema } from '../../midddleware/validateRegistered
 import { loginUserSchema } from './auth.schema.ts';
 
 import { checkDBConnection } from '../../config/databaseConfig.ts';
-import { loginUserController, registerUserController } from './auth.controller.ts';
+import { accessTokenController, loginUserController, registerUserController } from './auth.controller.ts';
 import { validateLoginUserSchema } from '../../midddleware/validateLoginUserSchema.ts';
 import { validateRefreshTokenSchema } from '../../midddleware/validateRefreshTokenSchema.ts';
 
@@ -104,7 +104,8 @@ authRouter.post("/login", checkDBConnection, validateLoginUserSchema(loginUserSc
 
 
 */
-authRouter.post("/refresh", checkDBConnection, validateRefreshTokenSchema(refreshTokenSchema))
+authRouter.post("/refresh", checkDBConnection, validateRefreshTokenSchema(refreshTokenSchema),
+    accessTokenController)
 
 
 // TODO: implement logout route because it invalidates refresh token

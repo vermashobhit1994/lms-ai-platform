@@ -1,7 +1,34 @@
-import React from 'react'
+import { getAccessToken, setAccessToken } from '../store/authStore'
+
+
+async function getCurrentUser() {
+    const accessToken = getAccessToken();
+    console.log("access token: ", accessToken);
+    const response = await fetch(
+        "http://localhost:3000/api/v1/auth/me",
+        {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+            credentials: "include",
+        }
+    );
+
+    const data = await response.json();
+    console.log(data);
+    if (!response.ok) {
+        throw new Error(
+            data?.error?.message ??
+            "Failed to fetch user profile"
+        );
+    }
+
+    return data;
+}
 
 const LoginUser = () => {
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         const formData = new FormData(e.currentTarget)
@@ -20,6 +47,7 @@ const LoginUser = () => {
                     email,
                     password,
                 }),
+                credentials: "include",
             })
             data = await res.json();
             if (!res.ok) {
@@ -30,14 +58,16 @@ const LoginUser = () => {
 
             }
             console.log('Login successful:', data)
+            setAccessToken(data.access_token);
+
         } catch (error) {
-            console.log(error);
+            console.error(error);
             if (error instanceof TypeError) {
-                console.log(error.message)
+                console.error(error.message)
             } else if (typeof error === "object" && error !== null && "status" in error) {
-                console.log("Login failed ", data);
+                console.error("Login failed ", data);
             } else {
-                console.log("something went wrong")
+                console.error("something went wrong")
             }
 
         }
@@ -53,11 +83,26 @@ const LoginUser = () => {
                 },
                 credentials: "include",
             });
-            console.log(response);
+            console.log(response.headers.get("content-type"));
+            if (response.headers.get("content-type") === "text/html; charset=utf-8") {
+
+                console.log(response.status);
+                console.log(response.headers.get("content-type"));
+                const text = await response.text()
+                console.log(text);
+
+            } else if ((response.headers.get("content-type") === "application/json; charset=utf-8")) {
+                const data = await response.json();
+                console.log(data);
+                setAccessToken(data.access_token);
+
+            }
+
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
+
 
     return (
 
@@ -76,10 +121,9 @@ const LoginUser = () => {
             <br />
 
             <button type="submit">Submit</button>
-            <br />
-            <br />
-            <button type="button" onClick={refreshLoginHandler}>Refresh</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+            <button type="button" onClick={refreshLoginHandler}>Refresh</button>
         </form>
 
     )

@@ -141,7 +141,7 @@ export class DatabaseUnavailableError extends AppError {
     constructor() {
         super(
             503,
-            "DATABASE_UNAVAILABLE",
+            "SERVER_UNAVAILABLE",
             "Service temporarily unavailable."
         );
     }
@@ -152,7 +152,7 @@ export class InvalidCredentialsError extends AppError {
         super(
             401,
             "INVALID_CREDENTIALS",
-            "Invalid Email or Password"
+            "Invalid Email or Password. Please register if you haven't"
         )
     }
 }
@@ -183,6 +183,16 @@ export class SesssionCreationError extends AppError {
             500,
             "LOGIN_INCOMPLETE",
             "Unable to complete login, Please try again"
+        )
+    }
+}
+
+export class UnauthorizedError extends AppError {
+    constructor() {
+        super(
+            401,
+            "LOGIN_INCOMPLETE",
+            "Unable to login. Please try again"
         )
     }
 }
