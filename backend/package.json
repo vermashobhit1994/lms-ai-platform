@@ -12,7 +12,8 @@
     "db:create-empty": "tsx src/db/scripts/01_create_empty_db.ts --ignoreConfig",
     "db:migrate": "tsx src/db/scripts/02_run_db_migrations.ts --ignoreConfig",
     "db:seed": "tsx src/db/scripts/03_run_db_seeders.ts --ignoreConfig",
-    "db:create-admin-user": "tsx src/db/scripts/04_create_admin_user.ts --ignoreConfig"
+    "db:create-admin-user": "tsx src/db/scripts/04_create_admin_user.ts --ignoreConfig",
+    "test": "jest"
   },
   "keywords": [
     "lms",
@@ -30,17 +31,24 @@
     "winston": "^3.19.0"
   },
   "devDependencies": {
+    "@jest/globals": "^30.4.1",
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/jest": "^29.5.14",
     "@types/node": "^26.1.1",
     "@types/pg": "^8.20.0",
+    "@types/supertest": "^7.2.1",
     "argon2": "^0.45.1",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
+    "jest": "^29.7.0",
     "jose": "^6.2.4",
+    "supertest": "^7.2.2",
+    "ts-jest": "29",
+    "ts-node": "^10.9.2",
     "tsx": "^4.23.1",
-    "typescript": "^7.0.2",
+    "typescript": "5.9.2",
     "zod": "^4.4.3"
   }
 }
