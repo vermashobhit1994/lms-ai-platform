@@ -35,7 +35,7 @@ import { validateRefreshTokenSchema } from '../../midddleware/validateRefreshTok
 export const authRouter = express.Router();
 
 // function authRouterHandler(req: Request, resp: Response, next: NextFunction) {
-//     console.log("auth router working...")
+//     logDebug("auth router working...")
 //     return resp.status(200).json({
 //         message: "Auth router working success"
 //     })
@@ -84,13 +84,13 @@ authRouter.post("/login", checkDBConnection, validateLoginUserSchema(loginUserSc
     loginUserController)
 
 
-
+//TODO: BUG - refresh token is stored in cookie only when /api/v1/auth/refresh hit
 // TODO: implement refresh route because it issues new access token
 // TODO: implement schema validation
 //TODO: refresh api steps
 /*
 1. Receive refresh token
-2. Validate request i.e. ensure refresh token is actually recieved
+2. Validate request i.e. ensure refresh token is actually receieved
 3. Verify JWT signature
 4. Validate JWT claims
 5. Extract session ID & user ID
@@ -100,6 +100,9 @@ authRouter.post("/login", checkDBConnection, validateLoginUserSchema(loginUserSc
 9. Generate new access token
 10. Rotate refresh token (recommended)
 11. Return response
+
+
+
 */
 authRouter.post("/refresh", checkDBConnection, validateRefreshTokenSchema(refreshTokenSchema))
 
@@ -114,7 +117,6 @@ authRouter.post("/refresh", checkDBConnection, validateRefreshTokenSchema(refres
     4. mark revoked
     5. return 204
 */
-
 
 // TODO: implement me route because it return current authenticated user profile
 // TODO: implement schema validation
