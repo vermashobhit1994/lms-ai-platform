@@ -13,7 +13,7 @@
     "db:migrate": "tsx src/db/scripts/02_run_db_migrations.ts --ignoreConfig",
     "db:seed": "tsx src/db/scripts/03_run_db_seeders.ts --ignoreConfig",
     "db:create-admin-user": "tsx src/db/scripts/04_create_admin_user.ts --ignoreConfig",
-    "test": "jest"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "keywords": [
     "lms",
