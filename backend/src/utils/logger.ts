@@ -36,21 +36,36 @@ const isDevelopment = env.NODE_ENV === "development";
 export function logDebug(message: string, meta?: unknown) {
     if (!isDevelopment) return;
 
-    logger.debug(message, meta);
+    if (meta === undefined) {
+        logger.debug({ message });
+        return;
+    }
+    logger.debug({ message, meta });
 }
 
 export function logInfo(message: string, meta?: unknown) {
     if (!isDevelopment) return;
 
-    logger.info(message, meta);
+    if (meta === undefined) {
+        logger.info({ message });
+        return;
+    }
+    logger.info({ message, meta });
 }
 
 export function logWarn(message: string, meta?: unknown) {
     if (!isDevelopment) return;
-
-    logger.warn(message, meta);
+    if (meta === undefined) {
+        logger.warn({ message });
+        return;
+    }
+    logger.warn({ message, meta });
 }
 
 export function logError(message: string, meta?: unknown) {
-    logger.error(message, meta);
+    if (meta === undefined) {
+        logger.error({ message });
+        return;
+    }
+    logger.error({ message, meta });
 }

@@ -49,7 +49,16 @@ import { createLogger, format, transports } from "winston";
 export const logger = createLogger({
     level: "debug",
     format: format.combine(
-        format.timestamp(),
+        format.timestamp({
+            format: () => {
+                const now = new Date();
+
+                const pad = (n: number, len = 2) =>
+                    n.toString().padStart(len, "0");
+
+                return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}.${pad(now.getMilliseconds(), 3)}`;
+            },
+        }),
         format.errors({ stack: true }),
         format.metadata(),
         format.prettyPrint()
