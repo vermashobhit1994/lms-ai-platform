@@ -23,8 +23,12 @@ import { Pool} from "pg";
 
 import { DatabaseUnavailableError } from "../modules/auth/auth.errors.ts";
 import { type Request, type Response, type NextFunction } from "express";
-import { logDebug } from "../utils/logger.ts";
+import { logDebug, logError } from "../utils/logger.ts";
 import { env } from "./envConfig.ts";
+
+/**
+ * @description pool used for migration and seeder of database
+ */
 export const dbPool = new Pool({
     host: env.DB_HOST,
     port: Number(env.DB_PORT),
@@ -58,11 +62,12 @@ export async function checkDBConnection(req: Request,
     try {
 
         await userPool.query("SELECT 1 AS STATUS");
-        next();
+        logDebug("database checked success");
+        return next();
     } catch (err) {
-        logDebug("Database unavailable:", err);
+        logError("Database unavailable:", err);
 
-        next(new DatabaseUnavailableError());
+        return next(new DatabaseUnavailableError());
     } finally {
         // userPool.end();
     }
